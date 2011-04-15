@@ -84,6 +84,9 @@ class jobpostings (models.Model):
     description = models.TextField(null=True)
     qualification = models.TextField(null=True)
     
+    def __unicode__(self):
+        return unicode((self.postDate,self.validity,self.jobID))
+    
     
 
     
