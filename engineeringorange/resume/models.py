@@ -20,12 +20,14 @@ class accounts (models.Model):
     
     
 class courses (models.Model):
+    courseID = models.AutoField(null=False, primary_key=True)
     title = models.CharField(null=False, max_length=80)
     
     def __unicode__(self):
         return unicode((self.title))
     
 class industries (models.Model):
+    industryID = models.AutoField(null=False,primary_key=True)
     title = models.CharField(null=False,max_length=40)
     description = models.TextField()
     
@@ -39,9 +41,29 @@ class employers (models.Model):
     address = models.TextField()
     city = models.CharField(max_length=40)
     telephoneNumber= models.CharField(max_length=20)
-    #companyLogo
-    #infoSheet
+    companyLogo = models.FileField(upload_to='company/logo/', blank=True)
+    infoSheet = models.FileField(upload_to='company/infosheet/', blank=True)
     background = models.TextField()
     url = models.CharField(max_length=80)
     credit = models.IntegerField(max_length=11)
+    
+    def __unicode__(self):
+        return unicode((self.userID,self.companyName))
+    
+class skillcategories (models.Model):
+    categoryID = models.AutoField(primary_key=True)
+    title = models.CharField(null=False, max_length=30)
+    
+    def __unicode__ (self):
+        return unicode((self.title))
+    
+class skill (models.Model):
+    skillID = models.AutoField(null=False, primary_key=True)
+    skill = models.CharField(null=False, max_length=40)
+    categoryID = models.ForeignKey(skillcategories,null=False)
+    
+    def __unicode__(self):
+        return unicode((self.skill))
+    
+
     
