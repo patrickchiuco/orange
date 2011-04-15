@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 # Create your models here.
 class accounts (models.Model):
@@ -41,8 +42,8 @@ class employers (models.Model):
     address = models.TextField()
     city = models.CharField(max_length=40)
     telephoneNumber= models.CharField(max_length=20)
-    companyLogo = models.FileField(upload_to='company/logo/', blank=True)
-    infoSheet = models.FileField(upload_to='company/infosheet/', blank=True)
+    #companyLogo = models.FileField(upload_to='company/logo/', blank=True)
+    #infoSheet = models.FileField(upload_to='company/infosheet/', blank=True)
     background = models.TextField()
     url = models.CharField(max_length=80)
     credit = models.IntegerField(max_length=11)
@@ -64,6 +65,25 @@ class skill (models.Model):
     
     def __unicode__(self):
         return unicode((self.skill))
+    
+class jobpositions (models.Model):
+    jobID = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=80)
+    description = models.TextField()
+    industryID = models.ForeignKey(industries, null=False)
+    
+    def __unicode__(self):
+        return unicode((self.title,self.description))
+    
+class jobpostings (models.Model):
+    postID = models.AutoField(primary_key=True)
+    userID = models.ForeignKey(accounts,null=False)
+    postDate = models.DateTimeField(null=False,default=datetime.datetime.now())
+    validity = models.DateTimeField(null=False)
+    jobID = models.ForeignKey(jobpositions,null=False)
+    description = models.TextField(null=True)
+    qualification = models.TextField(null=True)
+    
     
 
     
