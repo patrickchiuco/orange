@@ -36,7 +36,7 @@ class industries (models.Model):
         return unicode((self.title))
 
 class employers (models.Model):
-    userID = models.CharField(null=False,max_length=20, primary_key=True)
+    userID = models.ForeignKey(null=False,max_length=20, primary_key=True)
     companyName = models.CharField(null=False,max_length=40)
     industryID = models.ForeignKey(industries, null=False)
     address = models.TextField()
@@ -86,6 +86,34 @@ class jobpostings (models.Model):
     
     def __unicode__(self):
         return unicode((self.postDate,self.validity,self.jobID))
+    
+class jobseekers (model.Model):
+    genderChoices = (
+        ('m','male'),
+        ('f','female')
+    )
+    
+    userID = models.ForeignKey(accounts,null=False,primary_key=True)
+    firstName = models.CharField(max_length=40, null=False)
+    middleName = models.CharField(max_length=40, null=True)
+    lasteName = models.CharField(max_length=40, null=True)
+    courseID = models.ForeignKey(courses, null=True)
+    gwa = models.FloatField(null=False)
+    batch = models.CharField(max_length=10)
+    background = models.TextField(null=False)
+    presentAddress = models.TextField(null=True)
+    permanentAddress = models.TextField(null=False)
+    city = models.CharField(max_length=40,null=True)
+    telephoneNumber = models.CharField(max_length=20,null=True)
+    mobileNumber = models.CharField(max_length=20,null=True)
+    #photo = models.FileField(null=True)
+    #resume = models.FileField(null=True)
+    birthday = models.DateField(null=False,default='1900-01-01')
+    gender = models.CharField(null=False,default='m',choices=genderChoices)
+    url = models.CharField(null=True,max_length=80)
+    objective = models.TextField(null=True)
+    
+
     
     
 
