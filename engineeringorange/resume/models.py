@@ -36,7 +36,7 @@ class industries (models.Model):
         return unicode((self.title))
 
 class employers (models.Model):
-    userID = models.ForeignKey(null=False,max_length=20, primary_key=True)
+    userID = models.ForeignKey(accounts,null=False,max_length=20, primary_key=True)
     companyName = models.CharField(null=False,max_length=40)
     industryID = models.ForeignKey(industries, null=False)
     address = models.TextField()
@@ -87,7 +87,7 @@ class jobpostings (models.Model):
     def __unicode__(self):
         return unicode((self.postDate,self.validity,self.jobID))
     
-class jobseekers (model.Model):
+class jobseekers (models.Model):
     genderChoices = (
         ('m','male'),
         ('f','female')
@@ -96,7 +96,7 @@ class jobseekers (model.Model):
     userID = models.ForeignKey(accounts,null=False,primary_key=True)
     firstName = models.CharField(max_length=40, null=False)
     middleName = models.CharField(max_length=40, null=True)
-    lasteName = models.CharField(max_length=40, null=True)
+    lastName = models.CharField(max_length=40, null=True)
     courseID = models.ForeignKey(courses, null=True)
     gwa = models.FloatField(null=False)
     batch = models.CharField(max_length=10)
@@ -109,12 +109,82 @@ class jobseekers (model.Model):
     #photo = models.FileField(null=True)
     #resume = models.FileField(null=True)
     birthday = models.DateField(null=False,default='1900-01-01')
-    gender = models.CharField(null=False,default='m',choices=genderChoices)
+    gender = models.CharField(max_length=1,null=False,default='m',choices=genderChoices)
     url = models.CharField(null=True,max_length=80)
     objective = models.TextField(null=True)
     
-
+    def __unicode__(self):
+        return unicode((self.userID,self.firstName,self.lastName))
     
+class jsaffiliations (models.Model):
+    userID = models.ForeignKey(accounts,null=False,primary_key=True)
+    organization = models.CharField(max_length=80,null=False)
+    position = models.CharField(max_length=50,null=False)
+    startDate = models.DateField(null=False,default='2006-01-01')
+    endDate = models.DateField(null=True,default=None)
     
+    def __unicode__(self):
+        return unicode((self.userID,self.organization,self.position))
 
+class jseducation (models.Model):
+    userID = models.ForeignKey(accounts,null=False,primary_key=True)
+    institution = models.CharField(max_length=60,null=False)
+    degree = models.CharField(max_length=50,null=False)
+    startDate = models.DateField(null=False,default='2006-01-01')
+    endDate = models.DateField(null=True,default=None)
+    honors = models.TextField(null=True,default=None)
+    
+    def __unicode__(self):
+        return unicode((self.userID,self.institution,self.degree))
+    
+class jsemployment (models.Model):
+    userID = models.ForeignKey(accounts,null=False,primary_key=True)
+    employer = models.CharField(max_length=50,null=False)
+    position = models.CharField(max_length=50,null=False)
+    description = models.TextField(null=True,default=None)
+    startDate = models.DateField (null=False,default='2006-01-01')
+    endDate = models.DateField(null=True,default=None)
+    
+    def __unicode__(self):
+        return unicode((self.userID,self.employer,self.position))
+    
+class jsprojects (models.Model):
+    projectId = models.AutoField(null=False,primary_key=True)
+    userID  = models.ForeignKey(accounts,null=False)
+    title = models.CharField(null=False,max_length=100)
+    description = models.TextField(null=False)
+    
+    def __unicode__ (self):
+        return unicode ((self.projectId,self.title))
+    
+class jsseminars (models.Model):
+    userID = models.ForeignKey(accounts,null=False,primary_key=True)
+    title = models.CharField(max_length=60,null=False)
+    startDate = models.DateField(null=False)
+    endDate = models.DateField(null=True)
+    
+    def __unicode__ (self):
+        return unicode ((self.userID,self.title))
+
+class settings (models.Model):
+    userID = models.ForeignKey(accounts,null=False,primary_key=True)
+    isTelNoViewable = models.BooleanField(default=True)
+    isEmailViewable = models.BooleanField(default=True)
+    isMobileViewable = models.BooleanField(default=True)
+    isGWAViewable = models.BooleanField(default=True)
+    isAlertActive = models.BooleanField(default=True)
+    
+    def __unicode__(self):
+        return unicode((self.userID,self.isTelNoViewable,self.isEmailViewable,self.isMobileViewable,self.isGWAViewable,self.isAlertActive))
+    
+class messages (models.Model):
+    fromID = models.ForeignKey(accounts,null=False,related_name='from')
+    toID = models.ForeignKey(accounts,null=False, related_name='to')
+    subject = models.CharField(max_length=30,null=True,default=None)
+    message = models.TextField(null=True,default=None)
+    sendDate = models.DateTimeField(null=False,default='2006-01-01 00:00:00')
+    readDate = models.DateTimeField(null=True,default=None)
+    
+    def __unicode__(self):
+        return unicode((self.fromID,self.toID,self.subject,self.message))
     
