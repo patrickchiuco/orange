@@ -1,0 +1,24 @@
+div{
+	position: relative;
+	margin: 0.1em;
+}
+
+.header{
+	height: 5em;
+	background-color: red;
+}
+
+.nav{
+	left: auto;
+	width: 12em;
+	height: 16em;
+	background-color: green;
+}
+
+.content{
+	left: 12.2em;
+	bottom: 2.5em;
+	width: 3em;
+	background-color: blue;
+}
+
