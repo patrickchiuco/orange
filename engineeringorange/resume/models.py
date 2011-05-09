@@ -19,7 +19,6 @@ class accounts (models.Model):
     def __unicode__(self):
         return unicode((self.userID,self.userType,self.activation,self.expiry))
     
-    
 class courses (models.Model):
     courseID = models.AutoField(null=False, primary_key=True)
     title = models.CharField(null=False, max_length=80,default='')
@@ -34,7 +33,22 @@ class industries (models.Model):
     
     def __unicode__(self):
         return unicode((self.title))
-
+    
+class skillcategories (models.Model):
+    categoryID = models.AutoField(primary_key=True)
+    title = models.CharField(null=False, max_length=30,default='')
+    
+    def __unicode__ (self):
+        return unicode((self.title))
+    
+class skills (models.Model):
+    skillID = models.AutoField(null=False, primary_key=True)
+    skill = models.CharField(null=False, max_length=40,default='')
+    categoryID = models.ForeignKey(skillcategories,null=False,default=0)
+    
+    def __unicode__(self):
+        return unicode((self.skill))
+    
 class employers (models.Model):
     userID = models.ForeignKey(accounts,null=False,max_length=20, primary_key=True)
     companyName = models.CharField(null=False,max_length=40, default='')
@@ -50,49 +64,6 @@ class employers (models.Model):
     
     def __unicode__(self):
         return unicode((self.userID,self.companyName))
-    
-class skillcategories (models.Model):
-    categoryID = models.AutoField(primary_key=True)
-    title = models.CharField(null=False, max_length=30,default='')
-    
-    def __unicode__ (self):
-        return unicode((self.title))
-    
-class jsskills (models.Model):
-    jobskills = models.ForeignKey(jobseekers,primary_key=True)
-    skillID = models.ForeignKey(skills)
-    
-    def __unicode__(self):
-        return unicode((self.skills,self.skillID))   
-    
-class skills (models.Model):
-    skillID = models.AutoField(null=False, primary_key=True)
-    skill = models.CharField(null=False, max_length=40,default='')
-    categoryID = models.ForeignKey(skillcategories,null=False,default=0)
-    
-    def __unicode__(self):
-        return unicode((self.skill))
-    
-class jobpositions (models.Model):
-    jobID = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=80,default='')
-    description = models.TextField()
-    industryID = models.ForeignKey(industries, null=False,default=0)
-    
-    def __unicode__(self):
-        return unicode((self.title,self.description))
-    
-class jobpostings (models.Model):
-    postID = models.AutoField(primary_key=True)
-    userID = models.ForeignKey(accounts,null=False,default=None)
-    postDate = models.DateTimeField(null=False,default=datetime.datetime.now(),default='2006-01-01 00:00:00')
-    validity = models.DateTimeField(null=False,default='2006-01-01 00:00:00')
-    jobID = models.ForeignKey(jobpositions,null=False,default=0)
-    description = models.TextField(null=True)
-    qualification = models.TextField(null=True)
-    
-    def __unicode__(self):
-        return unicode((self.postDate,self.validity,self.jobID))
     
 class jobseekers (models.Model):
     genderChoices = (
@@ -123,6 +94,35 @@ class jobseekers (models.Model):
     
     def __unicode__(self):
         return unicode((self.userID,self.firstName,self.lastName))
+    
+class jsskills (models.Model):
+    jobskills = models.ForeignKey(jobseekers,primary_key=True)
+    skillID = models.ForeignKey(skills)
+    
+    def __unicode__(self):
+        return unicode((self.skills,self.skillID))   
+
+class jobpositions (models.Model):
+    jobID = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=80,default='')
+    description = models.TextField()
+    industryID = models.ForeignKey(industries, null=False,default=0)
+    
+    def __unicode__(self):
+        return unicode((self.title,self.description))
+    
+class jobpostings (models.Model):
+    postID = models.AutoField(primary_key=True)
+    userID = models.ForeignKey(accounts,null=False,default=None)
+    postDate = models.DateTimeField(null=False,default='2006-01-01 00:00:00')
+    validity = models.DateTimeField(null=False,default='2006-01-01 00:00:00')
+    jobID = models.ForeignKey(jobpositions,null=False,default=0)
+    description = models.TextField(null=True)
+    qualification = models.TextField(null=True)
+    
+    def __unicode__(self):
+        return unicode((self.postDate,self.validity,self.jobID))
+    
     
 class jsaffiliations (models.Model):
     userID = models.ForeignKey(accounts,null=False,primary_key=True,default='')
