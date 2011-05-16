@@ -1,28 +1,25 @@
 from django.db import models
+from django.contrib.auth.models import User
 import datetime
 
 # Create your models here.
-class accounts (models.Model):
+class account_details (models.Model):
     userTypeChoices = (
         ('adm','admin'),
         ('jsk','jobseeker'),
         ('emp','employer'),
     )
-    userID = models.CharField(null=False, max_length=20, primary_key=True)
-    password = models.CharField(null=False, max_length=20)
+    userID = models.ForeignKey(User,null=False, max_length=20, primary_key=True)
     userType = models.CharField(null=False, choices=userTypeChoices, max_length=9, default='jsk')
-    email = models.CharField(null=False, max_length=40)
-    history = models.DateTimeField(null=True)
     expiry = models.DateTimeField(null=True)
-    activation = models.DateTimeField(null=True)
-    
+   
     def __unicode__(self):
         return unicode((self.userID,self.userType,self.activation,self.expiry))
     
-class courses (models.Model):
+class course (models.Model):
     courseID = models.AutoField(null=False, primary_key=True)
     title = models.CharField(null=False, max_length=80,default='')
-    
+
     def __unicode__(self):
         return unicode((self.title))
     
@@ -49,8 +46,8 @@ class skills (models.Model):
     def __unicode__(self):
         return unicode((self.skill))
     
-class employers (models.Model):
-    userID = models.ForeignKey(accounts,null=False,max_length=20, primary_key=True)
+class employer (models.Model):
+    userID = models.ForeignKey(User,null=False,max_length=20, primary_key=True)
     companyName = models.CharField(null=False,max_length=40, default='')
     industryID = models.ForeignKey(industries, null=False)
     address = models.TextField()
@@ -63,19 +60,19 @@ class employers (models.Model):
     credit = models.IntegerField(max_length=11,default=50)
     
     def __unicode__(self):
-        return unicode((self.userID,self.companyName))
+        return unicode((self.userID,self.companyName,self.credit))
     
-class jobseekers (models.Model):
+class jobseeker (models.Model):
     genderChoices = (
         ('m','male'),
         ('f','female')
     )
     
-    userID = models.ForeignKey(accounts,null=False,primary_key=True)
-    firstName = models.CharField(max_length=40, null=False,default='')
-    middleName = models.CharField(max_length=40, null=True,default=None)
-    lastName = models.CharField(max_length=40, null=True,default=None)
-    courseID = models.ForeignKey(courses, null=True)
+    userID = models.ForeignKey(User,null=False,primary_key=True)
+    #firstName = models.CharField(max_length=40, null=False,default='')
+    #middleName = models.CharField(max_length=40, null=True,default=None)
+    #lastName = models.CharField(max_length=40, null=True,default=None)
+    courseID = models.ForeignKey(course, null=True)
     gwa = models.FloatField(null=False,default=0)
     batch = models.CharField(max_length=10,default='0')
     background = models.TextField(null=False)
@@ -93,10 +90,10 @@ class jobseekers (models.Model):
     jobskills = models.ManyToManyField(skills,through='jsskills')
     
     def __unicode__(self):
-        return unicode((self.userID,self.firstName,self.lastName))
+        return unicode((self.userID,self.gwa))
     
 class jsskills (models.Model):
-    jobskills = models.ForeignKey(jobseekers,primary_key=True)
+    jobskills = models.ForeignKey(jobseeker,primary_key=True)
     skillID = models.ForeignKey(skills)
     
     def __unicode__(self):
@@ -113,7 +110,7 @@ class jobpositions (models.Model):
     
 class jobpostings (models.Model):
     postID = models.AutoField(primary_key=True)
-    userID = models.ForeignKey(accounts,null=False,default=None)
+    userID = models.ForeignKey(User,null=False,default=None)
     postDate = models.DateTimeField(null=False,default='2006-01-01 00:00:00')
     validity = models.DateTimeField(null=False,default='2006-01-01 00:00:00')
     jobID = models.ForeignKey(jobpositions,null=False,default=0)
@@ -125,7 +122,7 @@ class jobpostings (models.Model):
     
     
 class jsaffiliations (models.Model):
-    userID = models.ForeignKey(accounts,null=False,primary_key=True,default='')
+    userID = models.ForeignKey(User,null=False,primary_key=True,default='')
     organization = models.CharField(max_length=80,null=False,default='')
     position = models.CharField(max_length=50,null=False,default='')
     startDate = models.DateField(null=False,default='2006-01-01')
@@ -135,7 +132,7 @@ class jsaffiliations (models.Model):
         return unicode((self.userID,self.organization,self.position))
     
 class jsawards (models.Model):
-    userID = models.ForeignKey(accounts,null=False,primary_key=True,default='')
+    userID = models.ForeignKey(User,null=False,primary_key=True,default='')
     institution = models.CharField(max_length=60,default='')
     award = models.CharField(max_length=80,default='')
     dateReceived = models.DateField(default='2006-01-01')
@@ -144,7 +141,7 @@ class jsawards (models.Model):
         return unicode((self.userID,self.institution,self.award))
 
 class jseducation (models.Model):
-    userID = models.ForeignKey(accounts,null=False,primary_key=True,default='')
+    userID = models.ForeignKey(User,null=False,primary_key=True,default='')
     institution = models.CharField(max_length=60,null=False,default='')
     degree = models.CharField(max_length=50,null=False,default='')
     startDate = models.DateField(null=False,default='2006-01-01')
@@ -155,7 +152,7 @@ class jseducation (models.Model):
         return unicode((self.userID,self.institution,self.degree))
     
 class jsemployment (models.Model):
-    userID = models.ForeignKey(accounts,null=False,primary_key=True,default='')
+    userID = models.ForeignKey(User,null=False,primary_key=True,default='')
     employer = models.CharField(max_length=50,null=False,default='')
     position = models.CharField(max_length=50,null=False,default='')
     description = models.TextField(null=True,default=None)
@@ -167,7 +164,7 @@ class jsemployment (models.Model):
     
 class jsprojects (models.Model):
     projectId = models.AutoField(null=False,primary_key=True)
-    userID  = models.ForeignKey(accounts,null=False)
+    userID  = models.ForeignKey(User,null=False)
     title = models.CharField(null=False,max_length=100)
     description = models.TextField(null=False)
     
@@ -175,7 +172,7 @@ class jsprojects (models.Model):
         return unicode ((self.projectId,self.title))
     
 class jsseminars (models.Model):
-    userID = models.ForeignKey(accounts,null=False,primary_key=True,default='')
+    userID = models.ForeignKey(User,null=False,primary_key=True,default='')
     title = models.CharField(max_length=60,null=False,default='')
     startDate = models.DateField(null=False,default='2006-01-01')
     endDate = models.DateField(null=True,default=None)
@@ -184,7 +181,7 @@ class jsseminars (models.Model):
         return unicode ((self.userID,self.title))
 
 class settings (models.Model):
-    userID = models.ForeignKey(accounts,null=False,primary_key=True)
+    userID = models.ForeignKey(User,null=False,primary_key=True)
     isTelNoViewable = models.BooleanField(default=True)
     isEmailViewable = models.BooleanField(default=True)
     isMobileViewable = models.BooleanField(default=True)
@@ -195,8 +192,8 @@ class settings (models.Model):
         return unicode((self.userID,self.isTelNoViewable,self.isEmailViewable,self.isMobileViewable,self.isGWAViewable,self.isAlertActive))
     
 class messages (models.Model):
-    fromID = models.ForeignKey(accounts,null=False,related_name='from')
-    toID = models.ForeignKey(accounts,null=False, related_name='to')
+    fromID = models.ForeignKey(User,null=False,related_name='from')
+    toID = models.ForeignKey(User,null=False, related_name='to')
     subject = models.CharField(max_length=30,null=True,default=None)
     message = models.TextField(null=True,default=None)
     sendDate = models.DateTimeField(null=False,default='2006-01-01 00:00:00')
@@ -204,4 +201,12 @@ class messages (models.Model):
     
     def __unicode__(self):
         return unicode((self.fromID,self.toID,self.subject,self.message))
+    
+class announcement (models.Model):
+    annID = models.AutoField(primary_key=True)
+    message = models.TextField(null=False)
+    date_posted = models.DateTimeField(default=datetime.datetime.now(),blank=True)
+    
+    def __unicode__(self):
+        return unicode ((self.message,self.date_posted))
     
