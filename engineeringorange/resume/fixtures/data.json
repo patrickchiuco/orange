@@ -1,0 +1,106 @@
+[{"pk": 27, "model": "contenttypes.contenttype", "fields": {"model": "account_details", "name": "account_details", "app_label": "resume"}},
+{"pk": 5, "model": "contenttypes.contenttype", "fields": {"model": "contenttype", "name": "content type", "app_label": "contenttypes"}}, {"p
+k": 10, "model": "contenttypes.contenttype", "fields": {"model": "courses", "name": "courses", "app_label": "resume"}}, {"pk": 14, "model":
+"contenttypes.contenttype", "fields": {"model": "employers", "name": "employers", "app_label": "resume"}}, {"pk": 2, "model": "contenttypes.
+contenttype", "fields": {"model": "group", "name": "group", "app_label": "auth"}}, {"pk": 11, "model": "contenttypes.contenttype", "fields":
+ {"model": "industries", "name": "industries", "app_label": "resume"}}, {"pk": 17, "model": "contenttypes.contenttype", "fields": {"model":
+"jobpositions", "name": "jobpositions", "app_label": "resume"}}, {"pk": 18, "model": "contenttypes.contenttype", "fields": {"model": "jobpos
+tings", "name": "jobpostings", "app_label": "resume"}}, {"pk": 15, "model": "contenttypes.contenttype", "fields": {"model": "jobseekers", "n
+ame": "jobseekers", "app_label": "resume"}}, {"pk": 19, "model": "contenttypes.contenttype", "fields": {"model": "jsaffiliations", "name": "
+jsaffiliations", "app_label": "resume"}}, {"pk": 20, "model": "contenttypes.contenttype", "fields": {"model": "jsawards", "name": "jsawards"
+, "app_label": "resume"}}, {"pk": 21, "model": "contenttypes.contenttype", "fields": {"model": "jseducation", "name": "jseducation", "app_la
+bel": "resume"}}, {"pk": 22, "model": "contenttypes.contenttype", "fields": {"model": "jsemployment", "name": "jsemployment", "app_label": "
+resume"}}, {"pk": 23, "model": "contenttypes.contenttype", "fields": {"model": "jsprojects", "name": "jsprojects", "app_label": "resume"}},
+{"pk": 24, "model": "contenttypes.contenttype", "fields": {"model": "jsseminars", "name": "jsseminars", "app_label": "resume"}}, {"pk": 16,
+"model": "contenttypes.contenttype", "fields": {"model": "jsskills", "name": "jsskills", "app_label": "resume"}}, {"pk": 8, "model": "conten
+ttypes.contenttype", "fields": {"model": "logentry", "name": "log entry", "app_label": "admin"}}, {"pk": 4, "model": "contenttypes.contentty
+pe", "fields": {"model": "message", "name": "message", "app_label": "auth"}}, {"pk": 26, "model": "contenttypes.contenttype", "fields": {"mo
+del": "messages", "name": "messages", "app_label": "resume"}}, {"pk": 1, "model": "contenttypes.contenttype", "fields": {"model": "permissio
+n", "name": "permission", "app_label": "auth"}}, {"pk": 6, "model": "contenttypes.contenttype", "fields": {"model": "session", "name": "sess
+ion", "app_label": "sessions"}}, {"pk": 25, "model": "contenttypes.contenttype", "fields": {"model": "settings", "name": "settings", "app_la
+bel": "resume"}}, {"pk": 7, "model": "contenttypes.contenttype", "fields": {"model": "site", "name": "site", "app_label": "sites"}}, {"pk":
+12, "model": "contenttypes.contenttype", "fields": {"model": "skillcategories", "name": "skillcategories", "app_label": "resume"}}, {"pk": 1
+3, "model": "contenttypes.contenttype", "fields": {"model": "skills", "name": "skills", "app_label": "resume"}}, {"pk": 3, "model": "content
+types.contenttype", "fields": {"model": "user", "name": "user", "app_label": "auth"}}, {"pk": "8cb2fbafa56aaa626d4dd03a470693f4", "model": "
+sessions.session", "fields": {"expire_date": "2011-05-23 14:30:59", "session_data": "N2Y5N2M4OWQ5MzUxMjA0ODQ2YmM3YjM0ZmY0NDBjZmM2N2ZiOTA5ZDq
+AAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQSKAQF1Lg==\n"}},
+{"pk": 1, "model": "sites.site", "fields": {"domain": "example.com", "name": "example.com"}}, {"pk": 1, "model": "admin.logentry", "fields":
+ {"action_flag": 2, "action_time": "2011-05-09 14:32:10", "object_repr": "webteam", "object_id": "1", "change_message": "Changed first_name
+and last_name.", "user": 1, "content_type": 3}}, {"pk": 22, "model": "auth.permission", "fields": {"codename": "add_logentry", "name": "Can
+add log entry", "content_type": 8}}, {"pk": 23, "model": "auth.permission", "fields": {"codename": "change_logentry", "name": "Can change lo
+g entry", "content_type": 8}}, {"pk": 24, "model": "auth.permission", "fields": {"codename": "delete_logentry", "name": "Can delete log entr
+y", "content_type": 8}}, {"pk": 4, "model": "auth.permission", "fields": {"codename": "add_group", "name": "Can add group", "content_type":
+2}}, {"pk": 5, "model": "auth.permission", "fields": {"codename": "change_group", "name": "Can change group", "content_type": 2}}, {"pk": 6,
+ "model": "auth.permission", "fields": {"codename": "delete_group", "name": "Can delete group", "content_type": 2}}, {"pk": 10, "model": "au
+th.permission", "fields": {"codename": "add_message", "name": "Can add message", "content_type": 4}}, {"pk": 11, "model": "auth.permission",
+ "fields": {"codename": "change_message", "name": "Can change message", "content_type": 4}}, {"pk": 12, "model": "auth.permission", "fields"
+: {"codename": "delete_message", "name": "Can delete message", "content_type": 4}}, {"pk": 1, "model": "auth.permission", "fields": {"codena
+me": "add_permission", "name": "Can add permission", "content_type": 1}}, {"pk": 2, "model": "auth.permission", "fields": {"codename": "chan
+ge_permission", "name": "Can change permission", "content_type": 1}}, {"pk": 3, "model": "auth.permission", "fields": {"codename": "delete_p
+ermission", "name": "Can delete permission", "content_type": 1}}, {"pk": 7, "model": "auth.permission", "fields": {"codename": "add_user", "
+name": "Can add user", "content_type": 3}}, {"pk": 8, "model": "auth.permission", "fields": {"codename": "change_user", "name": "Can change
+user", "content_type": 3}}, {"pk": 9, "model": "auth.permission", "fields": {"codename": "delete_user", "name": "Can delete user", "content_
+type": 3}}, {"pk": 13, "model": "auth.permission", "fields": {"codename": "add_contenttype", "name": "Can add content type", "content_type":
+ 5}}, {"pk": 14, "model": "auth.permission", "fields": {"codename": "change_contenttype", "name": "Can change content type", "content_type":
+ 5}}, {"pk": 15, "model": "auth.permission", "fields": {"codename": "delete_contenttype", "name": "Can delete content type", "content_type":
+ 5}}, {"pk": 79, "model": "auth.permission", "fields": {"codename": "add_account_details", "name": "Can add account_details", "content_type"
+: 27}}, {"pk": 80, "model": "auth.permission", "fields": {"codename": "change_account_details", "name": "Can change account_details", "conte
+nt_type": 27}}, {"pk": 81, "model": "auth.permission", "fields": {"codename": "delete_account_details", "name": "Can delete account_details"
+, "content_type": 27}}, {"pk": 28, "model": "auth.permission", "fields": {"codename": "add_courses", "name": "Can add courses", "content_typ
+e": 10}}, {"pk": 29, "model": "auth.permission", "fields": {"codename": "change_courses", "name": "Can change courses", "content_type": 10}}
+, {"pk": 30, "model": "auth.permission", "fields": {"codename": "delete_courses", "name": "Can delete courses", "content_type": 10}}, {"pk":
+ 40, "model": "auth.permission", "fields": {"codename": "add_employers", "name": "Can add employers", "content_type": 14}}, {"pk": 41, "mode
+l": "auth.permission", "fields": {"codename": "change_employers", "name": "Can change employers", "content_type": 14}}, {"pk": 42, "model":
+"auth.permission", "fields": {"codename": "delete_employers", "name": "Can delete employers", "content_type": 14}}, {"pk": 31, "model": "aut
+h.permission", "fields": {"codename": "add_industries", "name": "Can add industries", "content_type": 11}}, {"pk": 32, "model": "auth.permis
+sion", "fields": {"codename": "change_industries", "name": "Can change industries", "content_type": 11}}, {"pk": 33, "model": "auth.permissi
+on", "fields": {"codename": "delete_industries", "name": "Can delete industries", "content_type": 11}}, {"pk": 49, "model": "auth.permission
+", "fields": {"codename": "add_jobpositions", "name": "Can add jobpositions", "content_type": 17}}, {"pk": 50, "model": "auth.permission", "
+fields": {"codename": "change_jobpositions", "name": "Can change jobpositions", "content_type": 17}}, {"pk": 51, "model": "auth.permission",
+ "fields": {"codename": "delete_jobpositions", "name": "Can delete jobpositions", "content_type": 17}}, {"pk": 52, "model": "auth.permission
+", "fields": {"codename": "add_jobpostings", "name": "Can add jobpostings", "content_type": 18}}, {"pk": 53, "model": "auth.permission", "fi
+elds": {"codename": "change_jobpostings", "name": "Can change jobpostings", "content_type": 18}}, {"pk": 54, "model": "auth.permission", "fi
+elds": {"codename": "delete_jobpostings", "name": "Can delete jobpostings", "content_type": 18}}, {"pk": 43, "model": "auth.permission", "fi
+elds": {"codename": "add_jobseekers", "name": "Can add jobseekers", "content_type": 15}}, {"pk": 44, "model": "auth.permission", "fields": {
+"codename": "change_jobseekers", "name": "Can change jobseekers", "content_type": 15}}, {"pk": 45, "model": "auth.permission", "fields": {"c
+odename": "delete_jobseekers", "name": "Can delete jobseekers", "content_type": 15}}, {"pk": 55, "model": "auth.permission", "fields": {"cod
+ename": "add_jsaffiliations", "name": "Can add jsaffiliations", "content_type": 19}}, {"pk": 56, "model": "auth.permission", "fields": {"cod
+ename": "change_jsaffiliations", "name": "Can change jsaffiliations", "content_type": 19}}, {"pk": 57, "model": "auth.permission", "fields":
+ {"codename": "delete_jsaffiliations", "name": "Can delete jsaffiliations", "content_type": 19}}, {"pk": 58, "model": "auth.permission", "fi
+elds": {"codename": "add_jsawards", "name": "Can add jsawards", "content_type": 20}}, {"pk": 59, "model": "auth.permission", "fields": {"cod
+ename": "change_jsawards", "name": "Can change jsawards", "content_type": 20}}, {"pk": 60, "model": "auth.permission", "fields": {"codename"
+: "delete_jsawards", "name": "Can delete jsawards", "content_type": 20}}, {"pk": 61, "model": "auth.permission", "fields": {"codename": "add
+_jseducation", "name": "Can add jseducation", "content_type": 21}}, {"pk": 62, "model": "auth.permission", "fields": {"codename": "change_js
+education", "name": "Can change jseducation", "content_type": 21}}, {"pk": 63, "model": "auth.permission", "fields": {"codename": "delete_js
+education", "name": "Can delete jseducation", "content_type": 21}}, {"pk": 64, "model": "auth.permission", "fields": {"codename": "add_jsemp
+loyment", "name": "Can add jsemployment", "content_type": 22}}, {"pk": 65, "model": "auth.permission", "fields": {"codename": "change_jsempl
+oyment", "name": "Can change jsemployment", "content_type": 22}}, {"pk": 66, "model": "auth.permission", "fields": {"codename": "delete_jsem
+ployment", "name": "Can delete jsemployment", "content_type": 22}}, {"pk": 67, "model": "auth.permission", "fields": {"codename": "add_jspro
+jects", "name": "Can add jsprojects", "content_type": 23}}, {"pk": 68, "model": "auth.permission", "fields": {"codename": "change_jsprojects
+", "name": "Can change jsprojects", "content_type": 23}}, {"pk": 69, "model": "auth.permission", "fields": {"codename": "delete_jsprojects",
+ "name": "Can delete jsprojects", "content_type": 23}}, {"pk": 70, "model": "auth.permission", "fields": {"codename": "add_jsseminars", "nam
+e": "Can add jsseminars", "content_type": 24}}, {"pk": 71, "model": "auth.permission", "fields": {"codename": "change_jsseminars", "name": "
+Can change jsseminars", "content_type": 24}}, {"pk": 72, "model": "auth.permission", "fields": {"codename": "delete_jsseminars", "name": "Ca
+n delete jsseminars", "content_type": 24}}, {"pk": 46, "model": "auth.permission", "fields": {"codename": "add_jsskills", "name": "Can add j
+sskills", "content_type": 16}}, {"pk": 47, "model": "auth.permission", "fields": {"codename": "change_jsskills", "name": "Can change jsskill
+s", "content_type": 16}}, {"pk": 48, "model": "auth.permission", "fields": {"codename": "delete_jsskills", "name": "Can delete jsskills", "c
+ontent_type": 16}}, {"pk": 76, "model": "auth.permission", "fields": {"codename": "add_messages", "name": "Can add messages", "content_type"
+: 26}}, {"pk": 77, "model": "auth.permission", "fields": {"codename": "change_messages", "name": "Can change messages", "content_type": 26}}
+, {"pk": 78, "model": "auth.permission", "fields": {"codename": "delete_messages", "name": "Can delete messages", "content_type": 26}}, {"pk
+": 73, "model": "auth.permission", "fields": {"codename": "add_settings", "name": "Can add settings", "content_type": 25}}, {"pk": 74, "mode
+l": "auth.permission", "fields": {"codename": "change_settings", "name": "Can change settings", "content_type": 25}}, {"pk": 75, "model": "a
+uth.permission", "fields": {"codename": "delete_settings", "name": "Can delete settings", "content_type": 25}}, {"pk": 34, "model": "auth.pe
+rmission", "fields": {"codename": "add_skillcategories", "name": "Can add skillcategories", "content_type": 12}}, {"pk": 35, "model": "auth.
+permission", "fields": {"codename": "change_skillcategories", "name": "Can change skillcategories", "content_type": 12}}, {"pk": 36, "model"
+: "auth.permission", "fields": {"codename": "delete_skillcategories", "name": "Can delete skillcategories", "content_type": 12}}, {"pk": 37,
+ "model": "auth.permission", "fields": {"codename": "add_skills", "name": "Can add skills", "content_type": 13}}, {"pk": 38, "model": "auth.
+permission", "fields": {"codename": "change_skills", "name": "Can change skills", "content_type": 13}}, {"pk": 39, "model": "auth.permission
+", "fields": {"codename": "delete_skills", "name": "Can delete skills", "content_type": 13}}, {"pk": 16, "model": "auth.permission", "fields
+": {"codename": "add_session", "name": "Can add session", "content_type": 6}}, {"pk": 17, "model": "auth.permission", "fields": {"codename":
+ "change_session", "name": "Can change session", "content_type": 6}}, {"pk": 18, "model": "auth.permission", "fields": {"codename": "delete_
+session", "name": "Can delete session", "content_type": 6}}, {"pk": 19, "model": "auth.permission", "fields": {"codename": "add_site", "name
+": "Can add site", "content_type": 7}}, {"pk": 20, "model": "auth.permission", "fields": {"codename": "change_site", "name": "Can change sit
+e", "content_type": 7}}, {"pk": 21, "model": "auth.permission", "fields": {"codename": "delete_site", "name": "Can delete site", "content_ty
+pe": 7}}, {"pk": 1, "model": "auth.user", "fields": {"username": "webteam", "first_name": "Engineering Orange", "last_name": "Webteam", "is_
+active": true, "is_superuser": true, "is_staff": true, "last_login": "2011-05-09 14:30:59", "groups": [], "user_permissions": [], "password"
+: "sha1$c3525$ee2c071a85a63f29d12445454c0df061518ac535", "email": "engineeringorange@gmail.com", "date_joined": "2011-05-09 14:29:18"}}]

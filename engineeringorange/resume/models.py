@@ -48,11 +48,11 @@ class skills (models.Model):
     
 class employer (models.Model):
     userID = models.ForeignKey(User,null=False,max_length=20, primary_key=True)
-    companyName = models.CharField(null=False,max_length=40, default='')
-    industryID = models.ForeignKey(industries, null=False)
+    companyName = models.CharField('name',null=False,max_length=40, default='')
+    industryID = models.ForeignKey(industries, verbose_name='industry',null=False)
     address = models.TextField()
     city = models.CharField(max_length=40,null=True)
-    telephoneNumber= models.CharField(max_length=20,null=True)
+    telephoneNumber= models.CharField('contact #',max_length=20,null=True)
     #companyLogo = models.FileField(upload_to='company/logo/', blank=True)
     #infoSheet = models.FileField(upload_to='company/infosheet/', blank=True)
     background = models.TextField()
@@ -72,12 +72,12 @@ class jobseeker (models.Model):
     #firstName = models.CharField(max_length=40, null=False,default='')
     #middleName = models.CharField(max_length=40, null=True,default=None)
     #lastName = models.CharField(max_length=40, null=True,default=None)
-    courseID = models.ForeignKey(course, null=True)
-    gwa = models.FloatField(null=False,default=0)
+    courseID = models.ForeignKey(course, verbose_name='course',null=True)
+    gwa = models.FloatField('GWA',null=False,default=0)
     batch = models.CharField(max_length=10,default='0')
     background = models.TextField(null=False)
-    presentAddress = models.TextField(null=True)
-    permanentAddress = models.TextField(null=False)
+    presentAddress = models.TextField('present Address',null=True)
+    permanentAddress = models.TextField('permanent Address',null=False)
     city = models.CharField(max_length=40,null=True,default=None)
     telephoneNumber = models.CharField(max_length=20,null=True,default=None)
     mobileNumber = models.CharField(max_length=20,null=True,default=None)
@@ -205,7 +205,7 @@ class messages (models.Model):
 class announcement (models.Model):
     annID = models.AutoField(primary_key=True)
     message = models.TextField(null=False)
-    date_posted = models.DateTimeField(default=datetime.datetime.now(),blank=True)
+    date_posted = models.DateTimeField('date Posted',default=datetime.datetime.now(),blank=True)
     
     def __unicode__(self):
         return unicode ((self.message,self.date_posted))
