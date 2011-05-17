@@ -8,10 +8,11 @@
 # into your database.
 
 from django.db import models
+import datetime 
 
+#Static Tables start here
 class Accounts(models.Model):
     userid = models.CharField(max_length=60, primary_key=True, db_column='userID') # Field name made lowercase.
-    password = models.CharField(max_length=60)
     usertype = models.CharField(max_length=27, db_column='userType') # Field name made lowercase.
     email = models.CharField(max_length=120)
     history = models.DateTimeField()
@@ -19,12 +20,43 @@ class Accounts(models.Model):
     activation = models.DateTimeField(null=True, blank=True)
     class Meta:
         db_table = u'accounts'
+    def __unicode__ (self):
+        return unicode(self.userid,self.email)
 
 class Courses(models.Model):
     courseid = models.IntegerField(primary_key=True, db_column='courseID') # Field name made lowercase.
     title = models.CharField(max_length=240)
     class Meta:
         db_table = u'courses'
+    def __unicode__ (self):
+        return unicode (self.title)
+        
+class Industries(models.Model):
+    industryid = models.IntegerField(primary_key=True, db_column='industryID') # Field name made lowercase.
+    title = models.CharField(max_length=120)
+    description = models.TextField(blank=True)
+    class Meta:
+        db_table = u'industries'
+    def __unicode__ (self):
+        return unicode (self.title)
+        
+class Skillcategories(models.Model):
+    categoryid = models.IntegerField(primary_key=True, db_column='categoryID') # Field name made lowercase.
+    title = models.CharField(max_length=90)
+    class Meta:
+        db_table = u'skillcategories'
+    def __unicode__(self):
+        return unicode(self.title)
+        
+class Skills(models.Model):
+    skillid = models.IntegerField(primary_key=True, db_column='skillID') # Field name made lowercase.
+    skill = models.CharField(max_length=120)
+    categoryid = models.ForeignKey(Skillcategories, db_column='categoryID') # Field name made lowercase.
+    class Meta:
+        db_table = u'skills'
+    def __unicode__ (self):
+        return unicode(self.skill)
+
 
 class Employers(models.Model):
     userid = models.ForeignKey(Accounts, db_column='userID') # Field name made lowercase.
@@ -40,13 +72,9 @@ class Employers(models.Model):
     credit = models.IntegerField()
     class Meta:
         db_table = u'employers'
+    def __unicode (self):
+        return unicode(self.userid,self.companyname)
 
-class Industries(models.Model):
-    industryid = models.IntegerField(primary_key=True, db_column='industryID') # Field name made lowercase.
-    title = models.CharField(max_length=120)
-    description = models.TextField(blank=True)
-    class Meta:
-        db_table = u'industries'
 
 class Jobpositions(models.Model):
     jobid = models.IntegerField(primary_key=True, db_column='jobID') # Field name made lowercase.
@@ -55,6 +83,8 @@ class Jobpositions(models.Model):
     industryid = models.ForeignKey(Industries, db_column='industryID') # Field name made lowercase.
     class Meta:
         db_table = u'jobpositions'
+    def __unicode__ (self):
+        return unicode(self.jobid,self.title)
 
 class Jobpostings(models.Model):
     postid = models.IntegerField(primary_key=True, db_column='postID') # Field name made lowercase.
@@ -66,6 +96,8 @@ class Jobpostings(models.Model):
     qualifications = models.TextField(blank=True)
     class Meta:
         db_table = u'jobpostings'
+    def __unicode__ (self):
+        return unicode(self.postid,self.description)
 
 class Jobseekers(models.Model):
     userid = models.ForeignKey(Accounts, db_column='userID') # Field name made lowercase.
@@ -89,6 +121,8 @@ class Jobseekers(models.Model):
     objective = models.TextField(blank=True)
     class Meta:
         db_table = u'jobseekers'
+    def __unicode__(self):
+        return unicode(self.userid)
 
 class Jsaffiliations(models.Model):
     userid = models.ForeignKey(Accounts, db_column='userID') # Field name made lowercase.
@@ -98,6 +132,8 @@ class Jsaffiliations(models.Model):
     enddate = models.DateField(null=True, db_column='endDate', blank=True) # Field name made lowercase.
     class Meta:
         db_table = u'jsaffiliations'
+    def __unicode__(self):
+        return unicode(self.userid,self.organization,self.position)
 
 class Jsawards(models.Model):
     userid = models.ForeignKey(Accounts, db_column='userID') # Field name made lowercase.
@@ -106,6 +142,8 @@ class Jsawards(models.Model):
     datereceived = models.DateField(db_column='dateReceived') # Field name made lowercase.
     class Meta:
         db_table = u'jsawards'
+    def __unicode__(self):
+        return unicode(self.userid,self.institution,self.award)
 
 class Jseducation(models.Model):
     userid = models.ForeignKey(Accounts, db_column='userID') # Field name made lowercase.
@@ -116,6 +154,9 @@ class Jseducation(models.Model):
     honors = models.TextField(blank=True)
     class Meta:
         db_table = u'jseducation'
+    def __unicode__(self):
+        return unicode(self.userid,self.institution,self.degree)
+
 
 class Jsemployment(models.Model):
     userid = models.ForeignKey(Accounts, db_column='userID') # Field name made lowercase.
@@ -126,6 +167,9 @@ class Jsemployment(models.Model):
     enddate = models.DateField(null=True, db_column='endDate', blank=True) # Field name made lowercase.
     class Meta:
         db_table = u'jsemployment'
+    def __unicode__(self):
+        return unicode(self.userid,self.employer,self.position)
+
 
 class Jsprojects(models.Model):
     projectid = models.IntegerField(primary_key=True, db_column='projectID') # Field name made lowercase.
@@ -134,6 +178,9 @@ class Jsprojects(models.Model):
     description = models.TextField()
     class Meta:
         db_table = u'jsprojects'
+    def __unicode__(self):
+        return unicode(self.projectid,self.title)
+
 
 class Jsseminars(models.Model):
     userid = models.ForeignKey(Accounts, db_column='userID') # Field name made lowercase.
@@ -142,44 +189,56 @@ class Jsseminars(models.Model):
     enddate = models.DateField(null=True, db_column='endDate', blank=True) # Field name made lowercase.
     class Meta:
         db_table = u'jsseminars'
+    def __unicode__(self):
+        return unicode(self.userid,self.title)
+
 
 class Jsskills(models.Model):
     userid = models.ForeignKey(Accounts, db_column='userID') # Field name made lowercase.
     skillid = models.ForeignKey(Skills, db_column='skillID') # Field name made lowercase.
     class Meta:
         db_table = u'jsskills'
+    def __unicode__(self):
+        return unicode(self.userid,self.skillid)
+
 
 class Messages(models.Model):
     msgid = models.IntegerField(primary_key=True, db_column='msgID') # Field name made lowercase.
-    fromid = models.ForeignKey(Accounts, null=True, db_column='fromID', blank=True) # Field name made lowercase.
-    toid = models.ForeignKey(Accounts, null=True, db_column='toID', blank=True) # Field name made lowercase.
+    fromid = models.ForeignKey(Accounts, null=True, db_column='fromID', blank=True,related_name='fromID') # Field name made lowercase.
+    toid = models.ForeignKey(Accounts, null=True, db_column='toID', blank=True,related_name='toID') # Field name made lowercase.
     subject = models.CharField(max_length=90, blank=True)
     message = models.TextField(blank=True)
     senddate = models.DateTimeField(db_column='sendDate') # Field name made lowercase.
     readdate = models.DateTimeField(null=True, db_column='readDate', blank=True) # Field name made lowercase.
     class Meta:
         db_table = u'messages'
+    def __unicode__(self):
+        return unicode(self.msgid,self.subject)
+
 
 class Settings(models.Model):
     userid = models.ForeignKey(Accounts, db_column='userID') # Field name made lowercase.
-    istelnoviewable = models.IntegerField(db_column='isTelNoViewable') # Field name made lowercase.
-    isemailviewable = models.IntegerField(db_column='isEmailViewable') # Field name made lowercase.
-    ismobileviewable = models.IntegerField(db_column='isMobileViewable') # Field name made lowercase.
-    isgwaviewable = models.IntegerField(db_column='isGWAViewable') # Field name made lowercase.
-    isalertactive = models.IntegerField(db_column='isAlertActive') # Field name made lowercase.
+    istelnoviewable = models.BooleanField(db_column='isTelNoViewable') # Field name made lowercase.
+    isemailviewable = models.BooleanField(db_column='isEmailViewable') # Field name made lowercase.
+    ismobileviewable = models.BooleanField(db_column='isMobileViewable') # Field name made lowercase.
+    isgwaviewable = models.BooleanField(db_column='isGWAViewable') # Field name made lowercase.
+    isalertactive = models.BooleanField(db_column='isAlertActive') # Field name made lowercase.
     class Meta:
         db_table = u'settings'
+		
+class Announcements (models.Model):
+    types = (
+        ('a','all'),
+        ('e','employers'),
+        ('j','jobseekers'),
+    )
+    
+    annID = models.AutoField(primary_key=True)
+    annText = models.TextField()
+    datePosted = models.DateTimeField(default=datetime.datetime.now(),blank=True)
+    annType = models.CharField(max_length=1,choices=types)
+    
+    def __unicode__(self):
+        return unicode(self.annID,self.annText)
 
-class Skillcategories(models.Model):
-    categoryid = models.IntegerField(primary_key=True, db_column='categoryID') # Field name made lowercase.
-    title = models.CharField(max_length=90)
-    class Meta:
-        db_table = u'skillcategories'
-
-class Skills(models.Model):
-    skillid = models.IntegerField(primary_key=True, db_column='skillID') # Field name made lowercase.
-    skill = models.CharField(max_length=120)
-    categoryid = models.ForeignKey(Skillcategories, db_column='categoryID') # Field name made lowercase.
-    class Meta:
-        db_table = u'skills'
 
