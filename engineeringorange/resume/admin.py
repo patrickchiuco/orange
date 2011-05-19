@@ -1,24 +1,28 @@
 from django.contrib import admin
-from resume.models import employer,course,jobseeker,announcement
+from resume.models import Employer,Course,Jobseeker,Announcement
 
 class EmployerAdmin (admin.ModelAdmin):
-    list_display = ('companyName','credit')
-    search_fields = ('companyName',)
-    list_filter = ('industryID',)
-    fields = ('companyName','credit')
+    list_display = ('companyname','credit')
+    search_fields = ('companyname',)
+    list_filter = ('industryid',)
+    fields = ('companyname','credit')
 
 class JobseekerAdmin (admin.ModelAdmin):
-    list_display = ('userID','gwa','batch')
-    search_fields = ('userID',)
-    list_filter = ('courseID',)
-    fields = ('courseID','batch','gwa')
+    list_display = ('lastname','gwa','batch')
+    search_fields = ('lastname',)
+    list_filter = ('courseid',)
+    ordering=('lastname',)
+    fields = ('courseid','batch','gwa')
     
 class AnnouncementAdmin (admin.ModelAdmin):
-    list_filter = ('date_posted',)
-    date_hierarchy = 'date_posted'
-    ordering = ('-date_posted',)
+    list_filter = ('datePosted',)
+    date_hierarchy = 'datePosted'
+    ordering = ('-datePosted',)
     
-admin.site.register(employer,EmployerAdmin)
-admin.site.register(course)
-admin.site.register(jobseeker,JobseekerAdmin)
-admin.site.register(announcement,AnnouncementAdmin)
+class CourseAdmin(admin.ModelAdmin):
+    ordering = ('courseid')
+    
+admin.site.register(Employer,EmployerAdmin)
+admin.site.register(Course)
+admin.site.register(Jobseeker,JobseekerAdmin)
+admin.site.register(Announcement,AnnouncementAdmin)
