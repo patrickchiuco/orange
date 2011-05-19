@@ -7,6 +7,7 @@
 # Also note: You'll have to insert the output of 'django-admin.py sqlcustom [appname]'
 # into your database.
 
+from django.contrib.auth.models import User
 from django.db import models
 import datetime 
 
@@ -24,6 +25,8 @@ class Accounts(models.Model):
     history = models.DateTimeField(default=datetime.datetime.now())
     expiry = models.DateTimeField(null=True, blank=True)
     activation = models.DateTimeField(null=True, blank=True)
+    userlink = models.ForeignKey(User, db_column='LinkedWith',blank=True,null=True)
+    
     class Meta:
         db_table = u'accounts'
     def __unicode__ (self):
@@ -137,6 +140,7 @@ class Jobseeker(models.Model):
         return unicode(self.userid)
     
 class Jsskills(models.Model):
+    jsskillsid = models.AutoField(primary_key=True)
     jobskills = models.ForeignKey(Jobseeker, db_column='jobskills') # Field name made lowercase.
     skillid = models.ForeignKey(Skills, db_column='skillID') # Field name made lowercase.
     class Meta:
@@ -145,10 +149,10 @@ class Jsskills(models.Model):
         return unicode(self.userid,self.skillid)
 
 class Jsaffiliations(models.Model):
-    userid = models.ForeignKey(Accounts, db_column='userID') # Field name made lowercase.
-    organization = models.CharField(max_length=240, primary_key=True)
-    position = models.CharField(max_length=150, primary_key=True)
-    startdate = models.DateField(primary_key=True, db_column='startDate') # Field name made lowercase.
+    userid = models.ForeignKey(Accounts, db_column='userID',primary_key=True) # Field name made lowercase.
+    organization = models.CharField(max_length=240)
+    position = models.CharField(max_length=150)
+    startdate = models.DateField(db_column='startDate') # Field name made lowercase.
     enddate = models.DateField(null=True, db_column='endDate', blank=True) # Field name made lowercase.
     class Meta:
         db_table = u'jsaffiliations'
@@ -156,9 +160,9 @@ class Jsaffiliations(models.Model):
         return unicode(self.userid,self.organization,self.position)
 
 class Jsawards(models.Model):
-    userid = models.ForeignKey(Accounts, db_column='userID') # Field name made lowercase.
-    institution = models.CharField(max_length=180, primary_key=True)
-    award = models.CharField(max_length=240, primary_key=True)
+    userid = models.ForeignKey(Accounts, db_column='userID',primary_key=True) # Field name made lowercase.
+    institution = models.CharField(max_length=180)
+    award = models.CharField(max_length=240)
     datereceived = models.DateField(db_column='dateReceived') # Field name made lowercase.
     class Meta:
         db_table = u'jsawards'
@@ -166,9 +170,9 @@ class Jsawards(models.Model):
         return unicode(self.userid,self.institution,self.award)
 
 class Jseducation(models.Model):
-    userid = models.ForeignKey(Accounts, db_column='userID') # Field name made lowercase.
-    institution = models.CharField(max_length=180, primary_key=True)
-    degree = models.CharField(max_length=150, primary_key=True)
+    userid = models.ForeignKey(Accounts, db_column='userID',primary_key=True) # Field name made lowercase.
+    institution = models.CharField(max_length=180)
+    degree = models.CharField(max_length=150)
     startdate = models.DateField(db_column='startDate',default='2006-01-01') # Field name made lowercase.
     enddate = models.DateField(null=True, db_column='endDate', blank=True) # Field name made lowercase.
     honors = models.TextField(blank=True)
@@ -179,9 +183,9 @@ class Jseducation(models.Model):
 
 
 class Jsemployment(models.Model):
-    userid = models.ForeignKey(Accounts, db_column='userID') # Field name made lowercase.
-    employer = models.CharField(max_length=150, primary_key=True)
-    position = models.CharField(max_length=150, primary_key=True)
+    userid = models.ForeignKey(Accounts, db_column='userID',primary_key=True) # Field name made lowercase.
+    employer = models.CharField(max_length=150)
+    position = models.CharField(max_length=150)
     description = models.TextField(blank=True)
     startdate = models.DateField(db_column='startDate',default='2006-01-01') # Field name made lowercase.
     enddate = models.DateField(null=True, db_column='endDate', blank=True) # Field name made lowercase.
@@ -203,9 +207,9 @@ class Jsprojects(models.Model):
 
 
 class Jsseminars(models.Model):
-    userid = models.ForeignKey(Accounts, db_column='userID') # Field name made lowercase.
-    title = models.CharField(max_length=180, primary_key=True)
-    startdate = models.DateField(primary_key=True, db_column='startDate',default='2006-01-01') # Field name made lowercase.
+    userid = models.ForeignKey(Accounts, db_column='userID',primary_key=True) # Field name made lowercase.
+    title = models.CharField(max_length=180)
+    startdate = models.DateField(db_column='startDate',default='2006-01-01') # Field name made lowercase.
     enddate = models.DateField(null=True, db_column='endDate', blank=True) # Field name made lowercase.
     class Meta:
         db_table = u'jsseminars'
@@ -229,7 +233,7 @@ class Messages(models.Model):
 
 
 class Settings(models.Model):
-    userid = models.ForeignKey(Accounts, db_column='userID') # Field name made lowercase.
+    userid = models.ForeignKey(Accounts, db_column='userID',primary_key=True) # Field name made lowercase.
     istelnoviewable = models.BooleanField(db_column='isTelNoViewable') # Field name made lowercase.
     isemailviewable = models.BooleanField(db_column='isEmailViewable') # Field name made lowercase.
     ismobileviewable = models.BooleanField(db_column='isMobileViewable') # Field name made lowercase.
