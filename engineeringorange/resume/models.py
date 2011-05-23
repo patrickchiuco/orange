@@ -25,7 +25,7 @@ class Accounts(models.Model):
     history = models.DateTimeField(default=datetime.datetime.now())
     expiry = models.DateTimeField(null=True, blank=True)
     activation = models.DateTimeField(null=True, blank=True)
-    userlink = models.ForeignKey(User, db_column='LinkedWith',blank=True,null=True)
+    userlink = models.ForeignKey(User,default=0)
     
     class Meta:
         db_table = u'accounts'
