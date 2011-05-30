@@ -1,0 +1,30 @@
+{% extends 'baseemployer.html' %} 
+	{% block head_title %} Engineering Orange - View All Job Posts {% endblock %}
+	
+	{% block title %}<h2/>Job Posts{% endblock %}
+	
+	{% block sider %}
+	<li>
+		<h4>Account Details</h4>
+			<ul>
+			  <li><a href="/employer/editaccount/{{user.userid.userid}}" title="Edit your Account">Edit Account Details</a></li>
+			</ul>
+	</li>
+	{% endblock %}
+	
+	{% block content %}
+		{% if posts %}
+            <ul>
+            {% for post in posts%}
+                <li><a href="../viewpost/{{post.jobID}}"><h3/>{{post.title}}</a></li>
+				{{post.description}}
+				<p/>
+				<fieldset/>
+				<p align = "right"> <a href = "../editpost/{{post.jobID}}">edit</a> | <a href = "../deletepost/{{post.jobID}}">delete</a></p>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>There are no posts.</p>
+        {% endif %}
+
+    {% endblock %}

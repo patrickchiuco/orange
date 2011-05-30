@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/css; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="css/engineeringorange.css">
+
+<title>{% block head_title %}Engineering Orange{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="orange.css" />
+</head>
+<body>
+<div id="wrapper">
+
+	<div id="top" class="clear">
+		<h1><a href="#">Engineering Orange</a></h1>
+		
+		<ul>
+			<li><a href="/employer/{{user.userid.userid}}">home</a></li>
+			<li><a href="/aboutorange/">about us</a></li>
+			<li><a href="/contactus/">contact</a></li>
+		</ul>
+	</div>
+
+	
+	<div id="body" class="clear">
+		<div id="sidebar" class="column-right">
+			{% block sidebar %}
+			<ul>	
+				<li>
+					<h4>Job Posts</h4>
+	
+					<ul>
+						<li><a href="/addjobpost/">Add a Job Post</a></li>
+	
+						<li><a href="/jobpost/{{user.userid.userid}}" title="View Job Posts">View All Job Posts</a></li>
+					</ul>
+				</li>
+				
+				<li>
+	
+					<h4>Student Resumes</h4>
+					<ul>
+					  <li><a href="/searchresume/" title="View a Resume">View Student Resumes</a></li>
+					</ul>
+				</li>
+				{% block sider %}
+				{% endblock %}
+			</ul>
+			{% endblock %}
+		</div>
+		
+		<div id="content" class="column-left">
+			 <h3>{% block title %}Page Title here{% endblock %}</h3>
+            {% block content %}
+
+            {% endblock %}
+		</div>
+	</div>
+	
+	<div id="footer" class="clear">
+		<div class="footer-box">
+			<h4>About Engineering Orange</h4>
+			<p>
+				Something about orange here 
+			</p>
+		</div>
+				
+		<div class="footer-box">
+			<h4>Job Postings</h4>
+			<ul>
+				<li><a href="/jobpost/{{user.userid.userid}}" title="View All Job Posts">View All Job Posts</a></li>
+				<li><a href="/addjobpost/" title="Add a Job Post">Add a Job Post</a></li>
+	
+			</ul>
+		</div>
+			
+		<div class="footer-box">
+			<h4>Student Resumes</h4>
+			<ul>
+				<li><a href="/searchresume/" title="View a Resume">View Student Resumes</a></li>
+			</ul>
+		</div>
+	</div>
+		
+	<div id="footer-links">
+		<p>
+			&copy; 2011 Engineering Orange. Design by <a href="http://www.spyka.net">Free CSS Templates</a> | Provided By <a href="http://www.template4all.com/" title="Free Website Templates">Free Website Templates</a> | <a href="http://www.freethemes4all.com" title="Free Website Templates">Freethemes4all.com</a> | <a href="http://www.seodesign.us" title="Creation Site Internet">SEO Design</a>
+		</p>
+	</div>
+</div>
+</body>

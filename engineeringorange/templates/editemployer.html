@@ -1,0 +1,21 @@
+{% extends 'baseemployer.html' %} 
+ {% block head_title %} Engineering Orange {% endblock %}
+ {% block title %} Edit Account Details{% endblock %}
+ 
+ {% block sider %}
+	<li>
+		<h4>Account Details</h4>
+			<ul>
+			  <li><a href="../editaccount/{{user.userid.userid}}" title="Edit your Account">Edit Account Details</a></li>
+			</ul>
+	</li>
+ {% endblock %}
+ 
+ {% block content %}
+	<form action="#" method="post">
+		<fieldset/>
+		<legend>Job Description</legend> <br>
+			{% csrf_token %}{{ form.as_p }}
+		<p><input type="submit" name="send" class="formbutton" value="Edit" /></p>
+	</form>
+ {% endblock %}

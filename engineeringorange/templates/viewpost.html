@@ -1,0 +1,29 @@
+   {% extends 'baseemployer.html' %} 
+    {% block head_title %}{{post.title}}{% endblock %}
+    {% block title %}<h2>{{post.title}}</h2>{% endblock %}
+	
+	{% block sider %}
+	<li>
+		<h4>Account Details</h4>
+			<ul>
+			  <li><a href="/employer/editaccount/{{user.userid.userid}}" title="Edit your Account">Edit Account Details</a></li>
+			</ul>
+	</li>
+	{% endblock %}
+	
+    {% block content %}
+		<fieldset/>
+		<legend><h3>Job Description</h3></legend>
+		{{post.description}}
+		<p/>
+		
+		<fieldset/>
+		<legend><h3>Job Qualification</h3></legend>
+		{{qualifications.qualifications}}
+		<p/>
+		<p/>
+		<p>
+		<b>This post is valid until:</b> {{qualifications.validity}}
+		</p>
+		<p align = "right"> <a href = "/editpost/{{post.jobid}}">edit</a> | <a href = "/deletepost/{{post.jobid}}">delete</a></p>
+    {% endblock %}

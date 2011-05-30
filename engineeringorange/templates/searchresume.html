@@ -1,0 +1,38 @@
+{% extends 'baseemployer.html' %} 
+ {% block head_title %} Engineering Orange - View A Resume {% endblock %}
+ {% block title %} Search For Resumes{% endblock %}
+ 
+ {% block sider %}
+	<li>
+		<h4>Account Details</h4>
+			<ul>
+			  <li><a href="/employer/editaccount/{{user.userid.userid}}" title="Edit your Account">Edit Account Details</a></li>
+			</ul>
+	</li>
+ {% endblock %}
+ 
+ {% block content %}
+	<fieldset>
+		<form action="/searchresume/" method="get">
+			{% csrf_token %} {{ form.as_p }}
+			<p><input type="submit" class="formbutton" value="Search"></p>
+		</form>
+	</fieldset>
+	
+	{% if query %}
+    <h2>Results:</h2>
+
+    {% if results %}
+      <ul>
+      {% for resume in results %}
+        <li><h3><a href = "link ng resume">{{ resume.firstname|escape }} {{ resume.lastname|escape }}<a/></h3></li>
+		<b>{{resume.courseid|escape}}, class of {{resume.batch|escape}} <p/> <p/></b>
+		<b>Objective: </b>{{resume.objective|escape}} <br>
+		<fieldset/>
+      {% endfor %}
+      </ul>
+    {% else %}
+      <p><h4/>No Resumes found</p>
+    {% endif %}
+    {% endif %}
+ {% endblock %}
