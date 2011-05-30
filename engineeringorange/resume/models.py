@@ -71,13 +71,13 @@ class Employer(models.Model):
     userid = models.ForeignKey(Accounts, db_column='userID',primary_key=True) # Field name made lowercase.
     companyname = models.CharField(max_length=120, db_column='companyName') # Field name made lowercase.
     industryid = models.ForeignKey(Industry, db_column='industryID',default=1) # Field name made lowercase.
-    address = models.TextField(blank=True)
-    city = models.CharField(max_length=120, blank=True)
-    telephonenumber = models.CharField(max_length=60, db_column='telephoneNumber', blank=True) # Field name made lowercase.
-    companylogo = models.FileField(upload_to='company_logos',db_column='companyLogo', blank=True) # Field name made lowercase.
-    infosheet = models.FileField(upload_to='infosheets',db_column='infoSheet', blank=True) # Field name made lowercase.
+    address = models.TextField(blank=True,null=True)
+    city = models.CharField(max_length=120, blank=True, null=True)
+    telephonenumber = models.CharField(max_length=60, db_column='telephoneNumber', blank=True, null=True) # Field name made lowercase.
+    companylogo = models.FileField(upload_to='company_logos',db_column='companyLogo', blank=True, null=True) # Field name made lowercase.
+    infosheet = models.FileField(upload_to='infosheets',db_column='infoSheet', blank=True, null=True) # Field name made lowercase.
     background = models.TextField()
-    url = models.CharField(max_length=240, blank=True)
+    url = models.CharField(max_length=240, blank=True, null=True)
     credit = models.IntegerField(default=50)
     class Meta:
         db_table = u'employer'
@@ -122,16 +122,16 @@ class Jobseeker(models.Model):
     gwa = models.FloatField(default=0)
     batch = models.CharField(max_length=30,default=0)
     background = models.TextField()
-    presentaddress = models.TextField(db_column='presentAddress', blank=True) # Field name made lowercase.
+    presentaddress = models.TextField(db_column='presentAddress', blank=True,null=True) # Field name made lowercase.
     permanentaddress = models.TextField(db_column='permanentAddress') # Field name made lowercase.
-    city = models.CharField(max_length=120, blank=True)
-    telephonenumber = models.CharField(max_length=60, db_column='telephoneNumber', blank=True) # Field name made lowercase.
-    mobilenumber = models.CharField(max_length=60, db_column='mobileNumber', blank=True) # Field name made lowercase.
-    photo = models.FileField(upload_to='js_photos',blank=True)
-    resume = models.FileField(upload_to='resumes',blank=True)
+    city = models.CharField(max_length=120, blank=True,null=True)
+    telephonenumber = models.CharField(max_length=60, db_column='telephoneNumber', blank=True,null=True) # Field name made lowercase.
+    mobilenumber = models.CharField(max_length=60, db_column='mobileNumber', blank=True,null=True) # Field name made lowercase.
+    photo = models.FileField(upload_to='js_photos',blank=True,null=True)
+    resume = models.FileField(upload_to='resumes',blank=True,null=True)
     birthday = models.DateField(default='1900-01-01')
     gender = models.CharField(max_length=18,choices=genderChoices,default='male')
-    url = models.CharField(max_length=240, blank=True)
+    url = models.CharField(max_length=240, blank=True,null=True)
     objective = models.TextField(blank=True)
     jobskills = models.ManyToManyField(Skills, through='Jsskills')
     class Meta:
