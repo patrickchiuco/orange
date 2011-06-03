@@ -16,7 +16,6 @@ def login(request):
             password = request.POST['password']
             user = auth.authenticate(username=username,password=password)
             acc = Accounts.objects.get(userid=username)
-            print('wrong')
             if user is not None and user.is_active:
                 auth.login(request, user)
                 print('logged')
@@ -24,7 +23,7 @@ def login(request):
                     return HttpResponse('jobseeker')
                     #HttpRedirect to jobseeker page here
                 else:
-                    return HttpResponse('employer')
+                    return HttpResponseRedirect('/employer/'+str(acc.userid)+'/')
                     #HttpRedirect to 'employer' page here
             print('user is not in database or is not active')
     else:

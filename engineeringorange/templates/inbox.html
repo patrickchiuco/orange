@@ -1,0 +1,30 @@
+{% extends 'baseemployer.html' %} 
+ {% block head_title %} Engineering Orange {% endblock %}
+ {% block title %}<h3/>Messages{% endblock %}
+ 
+ {% block content %}
+	{% if messages %}
+		<table>
+			<tr>
+				<th/>From
+				<th/>Subject
+				<th/>Content
+				<th/>Date Sent
+				<th/>
+				<th/>
+			</tr>	
+            {% for msg in messages%}
+				<tr>
+					<td>{{msg.fromid}}</td>
+					<td>{{msg.subject}}</td>
+					<td>{{msg.message}}</td>
+					<td>{{msg.senddate}}</td>
+					<td><a href="/employer/message/{{user.userid}}/{{msg.msgid}}"/>view<a/></td>
+					<td><a href = "/employer/message/delete/{{user.userid}}/{{msg.msgid}}">delete<a/></td>
+				<tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h4/>You have no messages.
+    {% endif %}
+ {% endblock %}

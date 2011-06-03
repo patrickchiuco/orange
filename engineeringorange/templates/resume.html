@@ -1,0 +1,31 @@
+   {% extends 'baseemployer.html' %} 
+    {% block head_title %}{{resume.firstname}} {{resume.lastname}}{% endblock %}
+    {% block title %}<h3>{{resume.firstname}} {{resume.middlename}} {{resume.lastname}}</h3>{% endblock %}
+	
+    {% block content %}
+		<fieldset/>
+		<legend><h4>Personal Information</h4></legend>
+		<b>Present Address: </b>{{resume.presentaddress}} <br>
+		<b>Permanent Address: </b>{{resume.permanentaddress}}<br>
+		<b>Telephone Number: </b>{{resume.telephonenumber}}<br>
+		<b>Mobile Number: </b>{{resume.mobilenumber}}<br>
+		<b>Birthday: </b> {{resume.birthday}}
+		<p/>
+		
+		<fieldset/>
+		<legend><h4>Objective</h4></legend>
+		{{resume.objective}}
+		<p/>
+		
+		<fieldset/>
+		<legend><h4>Educational Background</h4></legend>
+		{{education.startdate}} - {{education.enddate}}:      {{education.institution}}<br>
+        <ul/><ul/><ul/><ul/><ul/>{{education.degree}}
+		<ul>	
+			<li> {{education.honors}}</li>
+		</ul>
+		
+		<p/>
+		<p>
+		<p align = "right"> <a href = "/jobpost/edit/{{user.userid}}/{{post.jobid}}">edit</a> | <a href = "/jobpost/delete/{{user.userid}}/{{post.jobid}}">delete</a></p>
+    {% endblock %}

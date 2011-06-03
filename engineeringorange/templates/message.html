@@ -1,0 +1,15 @@
+   {% extends 'baseemployer.html' %} 
+    {% block head_title %}{{message.subject}}{% endblock %}
+    {% block title %}<h4>{{message.subject}}</h4>{% endblock %}
+	
+    {% block content %}
+		<fieldset/><br>
+		<b>From:</b> {{message.fromid.email}} <p/>
+		<b>To: </b> {{message.toid.email}}
+		<fieldset/>
+		<br>
+		<p/>{{message.message}}
+		<fieldset/>
+		<p align = "right"><a href = "/employer/message/reply/{{user.userid}}/{{message.msgid}}">reply</a> | <a href = "/employer/message/delete/{{user.userid}}/{{message.msgid}}">delete message</a></p>
+		
+    {% endblock %}
