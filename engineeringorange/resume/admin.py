@@ -8,8 +8,8 @@ class EmployerAdmin (admin.ModelAdmin):
     fields = ('userid','companyname','credit')
 
 class JobseekerAdmin (admin.ModelAdmin):
-    list_display = ('lastname','gwa','batch')
-    search_fields = ('lastname',)
+    list_display = ('userid','gwa','batch')
+    search_fields = ('userid',)
     list_filter = ('courseid',)
     ordering=('lastname',)
     fields = ('userid','courseid','batch','gwa')
