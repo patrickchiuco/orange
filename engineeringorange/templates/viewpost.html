@@ -16,5 +16,16 @@
 		<p>
 		<b>This post is valid until:</b> {{qualifications.validity}}
 		</p>
+		{% if form %}
+		<p align="left">
+			<h4/>Send a Message to {{company.companyname}}
+			<fieldset/>
+			<form action="#" method="post">
+					{% csrf_token %}{{ form.as_p }}
+				<p><input type="submit" name="send" class="formbutton" value="Submit" /></p>
+			</form>
+		</p>
+		{% else %}
 		<p align = "right"> <a href = "/jobpost/edit/{{user.userid}}/{{post.jobid}}">edit</a> | <a href = "/jobpost/delete/{{user.userid}}/{{post.jobid}}">delete</a></p>
+		{% endif %}
     {% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'baseemployer.html' %} 
+ {% block head_title %} Engineering Orange - Send a Message {% endblock %}
+ {% block title %}Send Message{% endblock %}
+  
+ {% block content %}
+	<form action="#" method="post">
+		<fieldset/><BR>
+			{% csrf_token %}{{ form.as_p }}
+		<p><input type="submit" name="send" class="formbutton" value="Submit" /></p>
+	</form>
+ {% endblock %}
