@@ -8,6 +8,7 @@
 # into your database.
 
 from django.contrib.auth.models import User
+from django.forms import ModelForm
 from django.db import models
 import datetime 
 
@@ -30,7 +31,7 @@ class Accounts(models.Model):
     class Meta:
         db_table = u'accounts'
     def __unicode__ (self):
-        return unicode((self.userid,self.email))
+        return unicode((self.email))
 
 class Course(models.Model):
     courseid = models.AutoField(primary_key=True, db_column='courseID') # Field name made lowercase.
@@ -257,4 +258,14 @@ class Announcement (models.Model):
     def __unicode__(self):
         return unicode(self.annID,self.annText)
 
+#Forms used
+class SearchForm(ModelForm):
+	class Meta:
+		model = Jobseeker
+		fields = ('courseid', 'batch', 'city')
+
+class StudentForm(ModelForm):
+	class Meta:
+		model = Jobseeker
+		fields = ('lastname', 'firstname')
 

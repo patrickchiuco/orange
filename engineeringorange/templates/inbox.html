@@ -15,12 +15,12 @@
 			</tr>	
             {% for msg in messages%}
 				<tr>
-					<td>{{msg.fromid}}</td>
+					<td><a href="/message/{{user.userid}}/{{msg.msgid}}"/>{{msg.fromid.email}}</a></td>
 					<td>{{msg.subject}}</td>
 					<td>{{msg.message}}</td>
 					<td>{{msg.senddate}}</td>
-					<td><a href="/employer/message/{{user.userid}}/{{msg.msgid}}"/>view<a/></td>
-					<td><a href = "/employer/message/delete/{{user.userid}}/{{msg.msgid}}">delete<a/></td>
+					<td><a href="/message/{{user.userid}}/{{msg.msgid}}"/>view<a/></td>
+					<td><a href = "/message/delete/{{user.userid}}/{{msg.msgid}}">delete<a/></td>
 				<tr>
             {% endfor %}
         </table>
