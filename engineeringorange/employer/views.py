@@ -23,13 +23,3 @@ def index(request, userid):
 	account = get_object_or_404(Accounts, userid=userid)
 	emp = get_object_or_404(Employer, userid=userid)
 	return render_to_response('employer.html', {'employer': emp, 'user': account, 'announcements': Announcement.objects.filter(annType='e').distinct()[:10]})
-
-def viewall(request, userid):
-	account = get_object_or_404(Accounts, userid=userid)
-	return render_to_response('inbox.html', {'user': account, 'messages': Messages.objects.filter(toid=account).distinct()[:20]})
-
-def viewmsg(request, userid, msgid):
-	account = get_object_or_404(Accounts, userid=userid)
-	message = get_object_or_404(Messages, msgid=msgid)
-	return render_to_response('message.html', {'user': account, 'message': message})
-	
