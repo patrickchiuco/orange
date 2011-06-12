@@ -127,8 +127,8 @@ class Jobseeker(models.Model):
     city = models.CharField(max_length=120, blank=True,null=True)
     telephonenumber = models.CharField(max_length=60, db_column='telephoneNumber', blank=True,null=True) # Field name made lowercase.
     mobilenumber = models.CharField(max_length=60, db_column='mobileNumber', blank=True,null=True) # Field name made lowercase.
-    photo = models.FileField(upload_to='js_photos',blank=True,null=True)
-    resume = models.FileField(upload_to='resumes',blank=True,null=True)
+    #photo = models.FileField(upload_to='js_photos',blank=True,null=True)
+    #resume = models.FileField(upload_to='resumes',blank=True,null=True)
     birthday = models.DateField(default='1900-01-01')
     gender = models.CharField(max_length=18,choices=genderChoices,default='male')
     url = models.CharField(max_length=240, blank=True,null=True)
