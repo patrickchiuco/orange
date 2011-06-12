@@ -8,6 +8,7 @@
 # into your database.
 
 from django.contrib.auth.models import User
+from django.forms import ModelForm
 from django.db import models
 import datetime 
 
@@ -256,5 +257,3 @@ class Announcement (models.Model):
     
     def __unicode__(self):
         return unicode(self.annID,self.annText)
-
-

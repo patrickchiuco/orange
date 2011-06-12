@@ -11,7 +11,7 @@ class JobseekerAdmin (admin.ModelAdmin):
     list_display = ('userid','gwa','batch')
     search_fields = ('userid',)
     list_filter = ('courseid',)
-    ordering=('lastname',)
+    ordering=('userid',)
     fields = ('userid','courseid','batch','gwa')
     
 class AnnouncementAdmin (admin.ModelAdmin):
