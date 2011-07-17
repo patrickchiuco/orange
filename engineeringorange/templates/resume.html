@@ -14,18 +14,31 @@
 		
 		<fieldset/>
 		<legend><h4>Objective</h4></legend>
-		{{resume.objective}}
+		<pre>{{resume.objective}}</pre>
 		<p/>
 		
 		<fieldset/>
 		<legend><h4>Educational Background</h4></legend>
 		{{education.startdate}} - {{education.enddate}}:      {{education.institution}}<br>
-        <ul/><ul/><ul/><ul/><ul/>{{education.degree}}
-		<ul>	
-			<li> {{education.honors}}</li>
-		</ul>
+        	<ul><ul><ul><ul><ul>{{education.degree}}
+			<ul><li> {{education.honors}}</li></ul>
+		</ul></ul></ul></ul></ul>
 		
-		<p/>
-		<p>
-		<p align = "right"> <a href = "/jobpost/edit/{{user.userid}}/{{post.jobid}}">edit</a> | <a href = "/jobpost/delete/{{user.userid}}/{{post.jobid}}">delete</a></p>
-    {% endblock %}
+		{% if sent%}
+			<div id = "notice">
+				{{sent}}
+			</div>	
+			<BR>	
+		{% endif %}		
+		{% if form %}
+		<fieldset>
+		<legend><h4>Send a Message to {{resume.firstname}}</h4></legend>		
+		<form action="#" method="post">
+				{% csrf_token %}{{ form.as_p }}
+			<p><input type="submit" name="send" class="formbutton" value="Submit" /></p>
+		</form>
+		</fieldset>		
+		{% else %}
+			<p align = "right"> <a href = "/jobpost/edit/{{user.userid}}/{{post.jobid}}">edit</a> | <a href = "/jobpost/delete/{{user.userid}}/{{post.jobid}}">delete</a></p>
+		{% endif %}
+	{% endblock %}

@@ -14,7 +14,7 @@
     <h2>Results:</h2>
     {% if results %}
 	<p align="right"><a href="/resume/exporttocsv/{{course}}/{{batch}}/{{city}}">Save Results to CSV</a></p>
-      <table>
+		<table id = "results">
 			<tr>
 				<th/>Last Name
 				<th/>First Name
@@ -25,9 +25,9 @@
 				<th/>Permanent Address
 			</tr>	
 			{% for resume in results %}
-				<tr>
-					<td><a href = "/resume/{{user.userid}}/{{resume.userid.userid}}">{{ resume.lastname|escape }}</a></td>
-					<td><a href = "/resume/{{user.userid}}/{{resume.userid.userid}}">{{ resume.firstname|escape }}</a></td>
+				<tr onmouseover="ChangeColor(this, true);" onmouseout="ChangeColor(this, false);" onclick="Nav('/resume/{{user.userid}}/{{resume.userid.userid}}');">
+					<td>{{ resume.lastname|escape }}</td>
+					<td>{{ resume.firstname|escape }}</td>
 					<td>{{resume.courseid|escape}}</td>
 					<td>{{resume.batch|escape}} </td>
 					<td>{{resume.telephonenumber|escape}}</td>
@@ -35,7 +35,15 @@
 					<td>{{resume.permanentaddress|escape}}</td>
 				</tr>
 			{% endfor %}
-      </table>
+		</table>
+		<div id="pageNavPosition" align="right"></div>	
+		<script type="text/javascript">
+			var pager = new Pager('results', 30); 
+			pager.init(); 
+			pager.showPageNav('pager', 'pageNavPosition'); 
+			pager.showPage(1);
+		</script>
+
     {% else %}
       <p><h4/>No Resumes found</p>
     {% endif %}

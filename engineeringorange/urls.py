@@ -43,6 +43,7 @@ urlpatterns += patterns('',
     url(r'^message/delete/(?P<userid>.*)/(?P<msgid>.*)/$', 'engineeringorange.messages.views.delete'),
     url(r'^messages/sent/(?P<userid>.*)/$', 'engineeringorange.messages.views.sent'),
     url(r'^reply/(?P<userid>.*)/(?P<msgid>.*)/$', 'engineeringorange.messages.views.reply'),
+    url(r'^compose/(?P<userid>.*)/$', 'engineeringorange.messages.views.compose'),
     url(r'^message/(?P<userid>.*)/(?P<msgid>.*)/$', 'engineeringorange.messages.views.viewmsg'),
     url(r'^messages/(?P<userid>.*)/$', 'engineeringorange.messages.views.viewall'),
 )
