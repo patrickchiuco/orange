@@ -72,7 +72,7 @@ def viewpost(request, userid, jobid):
 		if request.POST and form.is_valid():
 			newmsg = form.save(commit=False)
 			newmsg.fromid = account
-			newmsg.toid = get_object_or_404(Accounts, email = company.userid)
+			newmsg.toid = get_object_or_404(Accounts, userid = company.userid)
 			newmsg.senddate = datetime.datetime.now()
 			newmsg.save()
 			return render_to_response('viewpost.html', {'user': account, 'post': get_object_or_404(Jobpositions, jobid=jobid), 'qualifications' : post, 'form': MessageForm( None), 'company': company, 'closed': closed, 'sent': 'Your message has been sent!'}, context_instance=RequestContext(request))

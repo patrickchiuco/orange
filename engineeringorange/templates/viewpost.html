@@ -3,6 +3,14 @@
     {% block title %}<h3>{{post.title}}</h2>{% endblock %}
 	
     {% block content %}
+		{% if form %}
+		<fieldset/>
+		<legend><h4>Employer Details</h4></legend>
+		<b>Company: </b> {{company.companyname}}<br>
+		<b>Industry: </b> {{company.industryid.title}}<br>
+		<b>Contact Number: </b> {{company.telephonenumber}}<br>
+		<p/>
+		{% endif %} 
 		<fieldset/>
 		<legend><h4>Job Description</h4></legend>
 		<pre>{{post.description}}</pre>

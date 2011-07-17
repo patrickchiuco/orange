@@ -10,5 +10,7 @@
 		<br>
 		<p/><pre>{{message.message}}</pre>
 		<fieldset/>
-		<p align = "right"><a href = "/reply/{{user.userid}}/{{message.msgid}}">reply</a> | <a href = "/message/delete/{{user.userid}}/{{message.msgid}}" onclick="return confirm('Are you sure you want to delete?')">delete message</a></p>
+		<p align = "right"><a href = "/employer/message/reply/{{user.userid}}/{{message.msgid}}">reply</a> | <a href = "/employer/message/delete/{{user.userid}}/{{message.msgid}}">delete message</a></p>
+		
     {% endblock %}
+

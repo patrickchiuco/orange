@@ -10,6 +10,7 @@
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django.db import models
+from django import forms
 import datetime 
 
 #Static Tables start here
@@ -128,8 +129,8 @@ class Jobseeker(models.Model):
     city = models.CharField(max_length=120, blank=True,null=True)
     telephonenumber = models.CharField(max_length=60, db_column='telephoneNumber', blank=True,null=True) # Field name made lowercase.
     mobilenumber = models.CharField(max_length=60, db_column='mobileNumber', blank=True,null=True) # Field name made lowercase.
-    photo = models.FileField(upload_to='js_photos',blank=True,null=True)
-    resume = models.FileField(upload_to='resumes',blank=True,null=True)
+    #photo = models.FileField(upload_to='js_photos',blank=True,null=True)
+    #resume = models.FileField(upload_to='resumes',blank=True,null=True)
     birthday = models.DateField(default='1900-01-01')
     gender = models.CharField(max_length=18,choices=genderChoices,default='male')
     url = models.CharField(max_length=240, blank=True,null=True)
@@ -138,7 +139,7 @@ class Jobseeker(models.Model):
     class Meta:
         db_table = u'jobseeker'
     def __unicode__(self):
-        return unicode(self.userid)
+        return unicode((self.userid))
     
 class Jsskills(models.Model):
     jsskillsid = models.AutoField(primary_key=True)
@@ -147,7 +148,7 @@ class Jsskills(models.Model):
     class Meta:
         db_table = u'jsskills'
     def __unicode__(self):
-        return unicode(self.userid,self.skillid)
+        return unicode((self.userid,self.skillid))
 
 class Jsaffiliations(models.Model):
     userid = models.ForeignKey(Accounts, db_column='userID',primary_key=True) # Field name made lowercase.
@@ -158,7 +159,7 @@ class Jsaffiliations(models.Model):
     class Meta:
         db_table = u'jsaffiliations'
     def __unicode__(self):
-        return unicode(self.userid,self.organization,self.position)
+        return unicode((self.userid,self.organization,self.position))
 
 class Jsawards(models.Model):
     userid = models.ForeignKey(Accounts, db_column='userID',primary_key=True) # Field name made lowercase.
@@ -168,7 +169,7 @@ class Jsawards(models.Model):
     class Meta:
         db_table = u'jsawards'
     def __unicode__(self):
-        return unicode(self.userid,self.institution,self.award)
+        return unicode((self.userid,self.institution,self.award))
 
 class Jseducation(models.Model):
     userid = models.ForeignKey(Accounts, db_column='userID',primary_key=True) # Field name made lowercase.
@@ -180,7 +181,7 @@ class Jseducation(models.Model):
     class Meta:
         db_table = u'jseducation'
     def __unicode__(self):
-        return unicode(self.userid,self.institution,self.degree)
+        return unicode((self.userid,self.institution,self.degree))
 
 
 class Jsemployment(models.Model):
@@ -193,7 +194,7 @@ class Jsemployment(models.Model):
     class Meta:
         db_table = u'jsemployment'
     def __unicode__(self):
-        return unicode(self.userid,self.employer,self.position)
+        return unicode((self.userid,self.employer,self.position))
 
 
 class Jsprojects(models.Model):
@@ -204,7 +205,7 @@ class Jsprojects(models.Model):
     class Meta:
         db_table = u'jsprojects'
     def __unicode__(self):
-        return unicode(self.projectid,self.title)
+        return unicode((self.projectid,self.title))
 
 
 class Jsseminars(models.Model):
@@ -215,7 +216,7 @@ class Jsseminars(models.Model):
     class Meta:
         db_table = u'jsseminars'
     def __unicode__(self):
-        return unicode(self.userid,self.title)
+        return unicode((self.userid,self.title))
 
 
 
@@ -230,7 +231,7 @@ class Messages(models.Model):
     class Meta:
         db_table = u'messages'
     def __unicode__(self):
-        return unicode(self.msgid,self.subject)
+        return unicode((self.msgid,self.subject))
 
 
 class Settings(models.Model):
@@ -258,8 +259,8 @@ class Announcement (models.Model):
     def __unicode__(self):
         return unicode(self.annID,self.annText)
 
-#Forms used
 class SearchForm(ModelForm):
+	courseid = forms.ModelChoiceField(queryset=Course.objects.all(), label="Course")
 	class Meta:
 		model = Jobseeker
 		fields = ('courseid', 'batch', 'city')
@@ -267,5 +268,4 @@ class SearchForm(ModelForm):
 class StudentForm(ModelForm):
 	class Meta:
 		model = Jobseeker
-		fields = ('lastname', 'firstname')
-
+		fields = ('firstname', 'lastname')
