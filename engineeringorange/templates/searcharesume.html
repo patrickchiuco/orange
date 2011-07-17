@@ -1,0 +1,30 @@
+{% extends 'baseemployer.html' %}
+ {% block head_title %} Engineering Orange - View Specific Resume {% endblock %}
+ {% block title %} Search For A Specific Resume{% endblock %}
+  
+ {% block content %}
+<fieldset>
+<form action="/searcharesume/{{user.userid}}/" method="get">
+{% csrf_token %} {{ form.as_p }}
+<p><input type="submit" class="formbutton" value="Search"></p>
+</form>
+</fieldset>
+
+{% if query %}
+    <h2>Results for {{query}}</h2>
+    {% if results %}
+<ul>
+{% for resume in results %}
+<li><h3><a href = "/resume/{{user.userid}}/{{resume.userid.userid}}">{{ resume.lastname|escape }}, {{ resume.firstname|escape }}</a></h3></td>
+<b>Course: </b>{{resume.courseid|escape}}<br>
+<b>Batch: </b>{{resume.batch|escape}} <br>
+<b>Telephone Number: </b>{{resume.telephonenumber|escape}}<br>
+<b>Mobile Number: </b>{{resume.mobilenumber|escape}}<br>
+<b>Permaenet Address: </b>{{resume.permanentaddress|escape}}<p/>
+{% endfor %}
+</ul>
+    {% else %}
+      <p><h4/>No Resumes found</p>
+    {% endif %}
+    {% endif %}
+ {% endblock %}
