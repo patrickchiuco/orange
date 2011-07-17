@@ -20,7 +20,7 @@ body {
 
 /** element defaults **/
 table {
-	width:100%;
+	width: 675px;
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:13px;
 	text-align:left;
@@ -37,6 +37,7 @@ th {
 td {
 	border-bottom:1px solid #f4f4f4;
 }
+
 code, blockquote {
 	display:block;
 	border-left:5px solid #ddd;
@@ -252,76 +253,25 @@ div#sidebar h4 {
 }
 
 
+div#notice{
+	background:#F7B46F;
+	border: 1px solid #FE8100;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#000000;
+	padding:5px 10px;
+	font-size:14px;
+}
+
+
+
 /** footer **/
 div#footer {
-	background-color:#222;
-	padding:10px;
-	color:#999;
+	padding-top:30px;
+	color:#FE8100;
+	font-weight: bold;
 }
 div#footer a {
-	color:#999;
-	font-weight:bold;
-	text-decoration:underline;
-}
-div#footer h4 {
-	color:#999;
-	font-size:18px;
-}
-div#footer form {
-	margin:0;
-	padding:0;
-}
-div#footer form input#searchbutton {
-	background-color:#111;
-	border-bottom:none;
-	margin:0;
-}
-div#footer form input#searchquery {
-	background-color:#333;
-	color:#fff;
-	font-family:Arial, Helvetica, sans-serif;
-	border:none;
-	padding:5px 5px 6px;
-}
-div#footer ul {
-	margin:0;
-	padding:0;
-	list-style:none;
-	border-top:1px solid #333;
-}
-div#footer ul li {
-	padding:0;
-}
-div#footer ul li a {
-	text-decoration:none;
-	display:block;
-	padding:7px 10px;
-	border-bottom:1px solid #333;
-}
-div#footer ul li a:hover {
-	background-color:#1f1f1f;
-}
-div.footer-box {
-	width:220px;
-	margin-right:20px;
-	float:left;
-}
-div.end-footer-box {
-	margin-right:0;
-}
-div#footer-links {
-	background-color:#111;
-	color:#ffffff;
-	padding:5px;
-}
-div#footer-links p {
-	text-align:right;
-	padding:0;
-	margin:0;
-	font-size:10px;
-}
-div#footer-links a {
-	color:#fff;
+	color:#FE8100;
 	font-weight:bold;
 	text-decoration:underline;
 }
@@ -343,7 +293,104 @@ div#footer-links a {
 	display: block;
 }
 
+/** pagination **/
+.pg-normal {
+ 	color: #222;
+    font-weight: normal;
+	text-decoration: none;    
+	cursor: pointer;
+}
+.pg-selected {
+	color: #222;
+	font-weight: bold;        
+	text-decoration: underline;
+	cursor: pointer;
+}
 </style>
+
+<script type="text/javascript">
+		    function ChangeColor(tableRow, highLight){
+			    if (highLight){
+			      tableRow.style.backgroundColor = '#F7B46F';
+			    }else{
+			      tableRow.style.backgroundColor = '#ffffff';
+			    }
+		    }
+
+		    function Nav(theUrl){
+		  	    document.location.href = theUrl;
+		    }
+			
+			function Pager(tableName, itemsPerPage) {
+				this.tableName = tableName;
+				this.itemsPerPage = itemsPerPage;
+				this.currentPage = 1;
+				this.pages = 0;
+				this.inited = false;
+			
+				this.showRecords = function(from, to) {        
+				var rows = document.getElementById(tableName).rows;
+				// i starts from 1 to skip table header row
+				for (var i = 1; i < rows.length; i++) {
+					if (i < from || i > to)  
+						rows[i].style.display = 'none';
+					else
+						rows[i].style.display = '';
+				}
+				}
+			
+				this.showPage = function(pageNumber) {
+					 if (! this.inited) {
+					  alert("not inited");
+					  return;
+					 }
+
+					var oldPageAnchor = document.getElementById('pg'+this.currentPage);
+					oldPageAnchor.className = 'pg-normal';
+					
+					this.currentPage = pageNumber;
+					var newPageAnchor = document.getElementById('pg'+this.currentPage);
+					newPageAnchor.className = 'pg-selected';
+					
+					var from = (pageNumber - 1) * itemsPerPage + 1;
+					var to = from + itemsPerPage - 1;
+					this.showRecords(from, to);
+				}   
+			
+				this.prev = function() {
+					if (this.currentPage > 1)
+						this.showPage(this.currentPage - 1);
+				}
+			
+				this.next = function() {
+					if (this.currentPage < this.pages) {
+						this.showPage(this.currentPage + 1);
+					}
+				}                        
+			
+				this.init = function() {
+					var rows = document.getElementById(tableName).rows;
+					var records = (rows.length - 1); 
+					this.pages = Math.ceil(records / itemsPerPage);
+					this.inited = true;
+				}
+
+				this.showPageNav = function(pagerName, positionId) {
+				 if (! this.inited) {
+				  alert("not inited");
+				  return;
+				 }
+				 var element = document.getElementById(positionId);
+				 
+				 var pagerHtml = '<span onclick="' + pagerName + '.prev();" class="pg-normal"> &#171 Prev </span> | ';
+					for (var page = 1; page <= this.pages; page++) 
+						pagerHtml += '<span id="pg' + page + '" class="pg-normal" onclick="' + pagerName + '.showPage(' + page + ');">' + page + '</span> | ';
+					pagerHtml += '<span onclick="'+pagerName+'.next();" class="pg-normal"> Next &#187;</span>';            
+					
+					element.innerHTML = pagerHtml;
+				}
+			}
+</script>
 
 <title>{% block head_title %}Engineering Orange{% endblock %}</title>
 <link rel="stylesheet" type="text/css" href="orange.css" />
@@ -352,13 +399,15 @@ div#footer-links a {
 <div id="wrapper">
 
 	<div id="top" class="clear">
-		<h1><a href="#">Engineering Orange</a></h1>
-		
+		<h1><a href="">Engineering Orange</a></h1>
 		<ul>
 			<li><a href="/employer/{{user.userid}}">home</a></li>
 			<li><a href="/aboutorange/">about us</a></li>
 			<li><a href="/contactus/">contact</a></li>
+			<li><a href="">Logout</a></li>			
 		</ul>
+		
+		
 	</div>
 
 	
@@ -366,6 +415,21 @@ div#footer-links a {
 		<div id="sidebar" class="column-right">
 			{% block sidebar %}
 			<ul>	
+				<li>
+					<h4>Account Details</h4>
+						<ul>
+							<li><a href="/employer/{{user.userid}}" title="View Announcements">View Announcements</a></li>
+							<li><a href="/employer/editaccount/{{user.userid}}" title="Edit your Account">Edit Account Details</a></li>
+						</ul>
+				</li>
+				<li>
+					<h4>Messages</h4>							
+						<ul>
+							<li><a href="/compose/{{user.userid}}" title="Compose a message">Compose Message</a></li>
+							<li><a href="/messages/{{user.userid}}" title="View Messages">View Messages</a></li>
+							<li><a href="/messages/sent/{{user.userid}}" title="View Sent Messages">View Sent Messages</a></li>
+						</ul>
+				</li>				
 				<li>
 					<h4>Job Posts</h4>
 	
@@ -380,15 +444,9 @@ div#footer-links a {
 	
 					<h4>Student Resumes</h4>
 					<ul>
-					  <li><a href="/searchresume/{{user.userid}}" title="View a Resume">View Student Resumes</a></li>
+					  <li><a href="/searchresume/{{user.userid}}" title="Search for Resumes">Search for Student Resumes</a></li>
+					  <li><a href="/searcharesume/{{user.userid}}" title="Search for a Specifice Resume">View Specific Student Resume</a></li>
 					</ul>
-				</li>
-				<li>
-					<h4>Account Details</h4>
-						<ul>
-							<li><a href="/employer/{{user.userid}}" title="View Announcements">View Announcements</a></li>
-						  <li><a href="/employer/editaccount/{{user.userid}}" title="Edit your Account">Edit Account Details</a></li>
-						</ul>
 				</li>
 			</ul>
 			{% endblock %}
@@ -402,44 +460,9 @@ div#footer-links a {
 		</div>
 	</div>
 	
-	<div id="footer" class="clear">
-		<div class="footer-box">
-			<h4>About Engineering Orange</h4>
-			<p>
-				Something about orange here 
-			</p>
-		</div>
-				
-		<div class="footer-box">
-			<h4>Job Postings</h4>
-			<ul>
-				<li><a href="/jobpost/{{user.userid}}" title="View All Job Posts">View All Job Posts</a></li>
-				<li><a href="/jobpost/add/{{user.userid}}" title="Add a Job Post">Add a Job Post</a></li>
-	
-			</ul>
-		</div>
-			
-		<div class="footer-box">
-			<h4>Student Resumes</h4>
-			<ul>
-				<li><a href="/searchresume/{{user.userid}}" title="View a Resume">View Student Resumes</a></li>
-				
-			</ul>
-		</div>
-		
-		<div class="footer-box  end-footer-box">
-			<h4>Account Details</h4>
-			<ul>
-				<li><a href="/employer/{{user.userid}}" title="View Announcements">View Announcements</a></li>
-				<li><a href="/employer/editaccount/{{user.userid}}" title="Edit your Account">Edit Account Details</a></li>
-			</ul>
-		</div>
+	<div id="footer" class="clear">				
+	<p align = "center">
+			&copy; 2011 Engineering Orange | <a href = "#"> Home </a> | <a href = "#"> About </a> | <a href = "#"> Contact Us </a>
+	</p>
 	</div>
-		
-	<div id="footer-links">
-		<p>
-			&copy; 2011 Engineering Orange. Design by <a href="http://www.spyka.net">Free CSS Templates</a> | Provided By <a href="http://www.template4all.com/" title="Free Website Templates">Free Website Templates</a> | <a href="http://www.freethemes4all.com" title="Free Website Templates">Freethemes4all.com</a> | <a href="http://www.seodesign.us" title="Creation Site Internet">SEO Design</a>
-		</p>
-	</div>
-</div>
 </body>

@@ -1,11 +1,13 @@
 from engineeringorange.jobposts.models import *
+from engineeringorange.messages.models import *
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render_to_response, get_object_or_404
+import datetime
 
 def addpost(request, userid):
 	form = JobPositionForm(request.POST or None)
-	form2 = JobPostForm(request.POST or None)
+	form2 = JobPostForm(request.POST or None, initial={'validity': datetime.datetime.now()+datetime.timedelta(days=7)})
 	account = get_object_or_404(Accounts, userid=userid)
 	
 	if request.POST and form.is_valid() and form2.is_valid(): 
@@ -54,8 +56,28 @@ def editpost(request, userid, jobid):
 	
 def viewpost(request, userid, jobid):
 	account = get_object_or_404(Accounts, userid=userid)
+	post = get_object_or_404(Jobpostings, jobid=jobid)
+	company = get_object_or_404(Employer, userid = post.userid)
+	form=''
+	closed=''
+
+	#check is post has expired
+	if post.validity < datetime.datetime.now():
+		closed = 'this post is closed';	
+
+	#check who's viewing the post
+	result = Jobseeker.objects.filter(userid=userid).distinct()
+	if result:
+		form = MessageForm(request.POST or None, initial={'subject': 'Re: ' + str(post.jobid.title)})
+		if request.POST and form.is_valid():
+			newmsg = form.save(commit=False)
+			newmsg.fromid = account
+			newmsg.toid = get_object_or_404(Accounts, userid = company.userid)
+			newmsg.senddate = datetime.datetime.now()
+			newmsg.save()
+			return render_to_response('viewpost.html', {'user': account, 'post': get_object_or_404(Jobpositions, jobid=jobid), 'qualifications' : post, 'form': MessageForm( None), 'company': company, 'closed': closed, 'sent': 'Your message has been sent!'}, context_instance=RequestContext(request))
 	
-	return render_to_response('viewpost.html', {'user': account, 'post': get_object_or_404(Jobpositions, jobid=jobid), 'qualifications' : get_object_or_404(Jobpostings, jobid=jobid)})
+	return render_to_response('viewpost.html', {'user': account, 'post': get_object_or_404(Jobpositions, jobid=jobid), 'qualifications' : post, 'form': form, 'company': company, 'closed': closed}, context_instance=RequestContext(request))
 
 def viewall(request, userid):
 	account = get_object_or_404(Accounts, userid=userid)

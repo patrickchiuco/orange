@@ -3,18 +3,53 @@
     {% block title %}<h3>{{post.title}}</h2>{% endblock %}
 	
     {% block content %}
+		{% if form %}
+		<fieldset/>
+		<legend><h4>Employer Details</h4></legend>
+		<b>Company: </b> {{company.companyname}}<br>
+		<b>Industry: </b> {{company.industryid.title}}<br>
+		<b>Contact Number: </b> {{company.telephonenumber}}<br>
+		<p/>
+		{% endif %} 
 		<fieldset/>
 		<legend><h4>Job Description</h4></legend>
-		{{post.description}}
+		<pre>{{post.description}}</pre>
 		<p/>
 		
 		<fieldset/>
 		<legend><h4>Job Qualification</h4></legend>
-		{{qualifications.qualifications}}
+		<pre>{{qualifications.qualifications}}</pre>
 		<p/>
 		<p/>
 		<p>
-		<b>This post is valid until:</b> {{qualifications.validity}}
+		{% if not closed %}
+			<b>This post is valid until:</b> {{qualifications.validity}}		
 		</p>
-		<p align = "right"> <a href = "/jobpost/edit/{{user.userid}}/{{post.jobid}}">edit</a> | <a href = "/jobpost/delete/{{user.userid}}/{{post.jobid}}">delete</a></p>
+		{% endif %}	
+		
+		{% if sent%}
+			<div id = "notice">
+				{{sent}}
+			</div>	
+			<BR>	
+		{% endif %}	
+		{% if form %}
+			{% if not closed %}
+				<p align="left">
+					<fieldset>
+					<legend><h4>Apply for this Job</h4></legend>
+					<form action="#" method="post">
+							{% csrf_token %}{{ form.as_p }}
+						<p><input type="submit" name="send" class="formbutton" value="Submit" /></p>
+					</form>
+					</fieldset>
+				</p>
+			{% else %}
+				<div id="notice">
+				This Job posting has been closed.
+				</div>
+			{% endif %}
+		{% else %}
+		<p align = "right"> <a href = "/jobpost/edit/{{user.userid}}/{{post.jobid}}">edit</a> | <a href = "/jobpost/delete/{{user.userid}}/{{post.jobid}}" onclick="return confirm('Are you sure you want to delete?')">delete</a></p>
+		{% endif %}
     {% endblock %}

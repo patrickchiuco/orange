@@ -10,6 +10,7 @@
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django.db import models
+from django import forms
 import datetime 
 
 #Static Tables start here
@@ -31,7 +32,7 @@ class Accounts(models.Model):
     class Meta:
         db_table = u'accounts'
     def __unicode__ (self):
-        return unicode((self.userid))
+        return unicode((self.email))
 
 class Course(models.Model):
     courseid = models.AutoField(primary_key=True, db_column='courseID') # Field name made lowercase.
@@ -257,3 +258,14 @@ class Announcement (models.Model):
     
     def __unicode__(self):
         return unicode(self.annID,self.annText)
+
+class SearchForm(ModelForm):
+	courseid = forms.ModelChoiceField(queryset=Course.objects.all(), label="Course")
+	class Meta:
+		model = Jobseeker
+		fields = ('courseid', 'batch', 'city')
+
+class StudentForm(ModelForm):
+	class Meta:
+		model = Jobseeker
+		fields = ('firstname', 'lastname')

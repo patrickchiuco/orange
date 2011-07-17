@@ -1,0 +1,16 @@
+{% extends 'baseemployer.html' %} 
+ {% block head_title %} Engineering Orange - Send a Message {% endblock %}
+ {% block title %}<legend>Send Message</legend>{% endblock %}
+  
+ {% block content %}
+	<fieldset>
+	<form action="#" method="post">
+			<p><label for="fromid">From:</label> <input id="fromid" type="text" name="fromid" value = {{user.email}} readonly="readonly" /></p>
+			{% if to %}
+				<p><label for="toid">To:</label> <input id="toid" type="text" name="toid" value = {{to.email}} readonly="readonly" /></p>
+			{% endif %}			
+			{% csrf_token %}{{ form.as_p }}
+		<p><input type="submit" name="send" class="formbutton" value="Submit" /></p>
+	</form>
+	</fieldset>
+ {% endblock %}

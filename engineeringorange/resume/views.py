@@ -145,11 +145,13 @@ def resume(request, userid, stdid):
 	
 	result = Employer.objects.filter(userid=userid).distinct()
 	if result:
-		form = MessageForm(request.POST or None, initial={'fromid': account, 'toid': resume.userid})
+		form = MessageForm(request.POST or None)
 		if request.POST and form.is_valid():
 			newmsg = form.save(commit=False)
+			newmsg.fromid = account
+			newmsg.toid = resume.userid
 			newmsg.senddate = datetime.datetime.now()
 			newmsg.save()
-			return HttpResponseRedirect('/message/'+ str(account.userid) +'/' +str(newmsg.msgid))
+			return render_to_response("resume.html/", {"user": account, "resume": resume, "affliations": aff, "awards":awards, "education": education, "employment": employment, "project": project, "seminar": seminar, "employer": employment, "form": MessageForm(None), "sent": "Your Message has been sent!"},context_instance=RequestContext(request))
 		
 	return render_to_response("resume.html/", {"user": account, "resume": resume, "affliations": aff, "awards":awards, "education": education, "employment": employment, "project": project, "seminar": seminar, "employer": employment, "form": form},context_instance=RequestContext(request))	

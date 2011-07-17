@@ -8,8 +8,9 @@
 		<b>To: </b> {{message.toid.email}}
 		<fieldset/>
 		<br>
-		<p/>{{message.message}}
+		<p/><pre>{{message.message}}</pre>
 		<fieldset/>
 		<p align = "right"><a href = "/employer/message/reply/{{user.userid}}/{{message.msgid}}">reply</a> | <a href = "/employer/message/delete/{{user.userid}}/{{message.msgid}}">delete message</a></p>
 		
     {% endblock %}
+
