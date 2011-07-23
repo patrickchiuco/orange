@@ -1,0 +1,24 @@
+{% extends 'baseuser.html' %}
+{% block head_title %} Engineering Orange - Search Jobposts{% endblock %}
+{% block title %}Jobposts Results{% endblock %}
+  
+{% block content %}
+<fieldset>
+
+
+
+    <h2>Results for {{industry}}</h2>
+    {% if posts %}
+    <table>
+	{% for job in posts %}
+	<tr>
+		<td><a href = "/jobpost/view/{{user.userid}}/{{job.jobid}}">{{ job.title|escape}}</a></td>
+	</tr>
+    </table>	
+	{% endfor %}
+    {% else %}
+      <p><h4/>No Jobpostings found</p>
+    {% endif %}
+
+   </fieldset>
+ {% endblock %}

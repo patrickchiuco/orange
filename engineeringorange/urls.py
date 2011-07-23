@@ -30,7 +30,10 @@ urlpatterns += patterns('',
     url(r'^jobpost/view/(?P<userid>.*)/(?P<jobid>.*)/$', 'engineeringorange.jobposts.views.viewpost'),
     url(r'^jobpost/edit/(?P<userid>.*)/(?P<jobid>.*)/$','engineeringorange.jobposts.views.editpost'),
     url(r'^jobpost/delete/(?P<userid>.*)/(?P<jobid>.*)/$', 'engineeringorange.jobposts.views.deletepost'),
+    url(r'^jobpost/searchjobposts/(?P<userid>.*)/$', 'engineeringorange.jobposts.views.searchJobPosts'), 
+    url(r'^jobpost/viewsearchresults/(?P<userid>.*)/$', 'engineeringorange.jobposts.views.viewsearchresults'), 
     url(r'^jobpost/(?P<userid>.*)/$', 'engineeringorange.jobposts.views.viewall'),
+    
     #Resume URLS    
 
     url(r'^searchresume/(?P<userid>.*)/$', 'engineeringorange.resume.views.search'),
@@ -51,7 +54,9 @@ urlpatterns += patterns('',
     url(r'^messages/(?P<userid>.*)/$', 'engineeringorange.messages.views.viewall'),
     
     #Jobseeker URLS
-     url(r'^jobseeker/editaccount/(?P<userid>.*)/$', 'engineeringorange.jobseeker.views.editaccount'),
-     url(r'^jobseeker/messages/(?P<userid>.*)/$', 'engineeringorange.messages.views.viewall'),
-     url(r'^jobseeker/(?P<userid>.*)/$', 'engineeringorange.jobseeker.views.index'),
+    url(r'^jobseeker/editaccount/(?P<userid>.*)/$', 'engineeringorange.jobseeker.views.editaccount'),
+    url(r'^jobseeker/messages/(?P<userid>.*)/$', 'engineeringorange.messages.views.viewall'),
+    url(r'^jobseeker/searchjobposts/(?P<userid>.*)/$', 'engineeringorange.jobseeker.views.searchJobPosts'),
+    url(r'^jobseeker/(?P<userid>.*)/$', 'engineeringorange.jobseeker.views.index'),
+    
 )

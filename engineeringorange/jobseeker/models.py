@@ -12,3 +12,12 @@ class JobseekerForm(ModelForm):
         model = Jobseeker
         exclude = ('userid', 'gwa')
         
+class SearchJobsForm(ModelForm):
+    class Meta:
+        model = Jobpositions
+        fields = ('industryid',)
+
+class JobPostingsForm(ModelForm):
+    class Meta:
+        model = Jobpostings
+        fields = ( 'description',)
