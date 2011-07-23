@@ -32,4 +32,7 @@ def viewmsg(request, userid, msgid):
     account = get_object_or_404(Accounts, userid=userid)
     message = get_object_or_404(Messages, msgid=msgid)
     return render_to_response('message.html', {'user': account, 'message': message})
+
+
+    
     
