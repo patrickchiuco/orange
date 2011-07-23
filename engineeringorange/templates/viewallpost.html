@@ -1,26 +1,33 @@
-{% extends 'baseemployer.html' %} 
-	{% block head_title %} Engineering Orange - View All Job Posts {% endblock %}
+{% extends 'baseuser.html' %} 
+	{% block head_title %} Engineering Orange - View All Job Posts{% endblock %}
 	
 	{% block title %}<h3/>Job Posts{% endblock %}
 	
 	{% block content %}
 		{% if posts %}
-            <table>
+			<table id = "results">
 				<tr>
 					<th/>Job Post
 					<th/>Description
-					<th/>Edit
-					<th/>Delete
+					<th colspan=2> Action </th>
 				</tr>	
 				{% for post in posts%}
-					<tr>
-						<td><a href="/jobpost/view/{{user.userid}}/{{post.jobid.jobid}}"><b/>{{post.jobid.title}}</a></td>
+					<tr onmouseover="ChangeColor(this, true);" onmouseout="ChangeColor(this, false);" onclick="Nav('/jobpost/view/{{user.userid}}/{{post.jobid.jobid}}');">
+						<td><b/>{{post.jobid.title}}</td>
 						<td>{{post.description}}</td>
 						<td><a href = "/jobpost/edit/{{user.userid}}/{{post.jobid.jobid}}">edit</a></td>
-						<td><a href = "/jobpost/delete/{{user.userid}}/{{post.jobid.jobid}}">delete</td>
+						<td><a href = "/jobpost/delete/{{user.userid}}/{{post.jobid.jobid}}" onclick="return confirm('Are you sure you want to delete?')">delete</td>
 					</tr>
 				{% endfor %}
-            </table>
+	        </table>
+			<div id="pageNavPosition" align = "right"></div>
+			
+			<script type="text/javascript">
+				var pager = new Pager('results', 20); 
+				pager.init(); 
+				pager.showPageNav('pager', 'pageNavPosition'); 
+				pager.showPage(1);
+			</script>
         {% else %}
             <p>There are no posts.</p>
         {% endif %}

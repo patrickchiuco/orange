@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'orangeDB',                      # Or path to database file if using sqlite3.
+        'NAME': 'test',                      # Or path to database file if using sqlite3.
         'USER': 'webteam',                      # Not used with sqlite3.
         'PASSWORD': 'pishIsnak',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -121,8 +121,6 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'resume',
-    'jobposts',
-    'employer',
 )
 
 # A sample logging configuration. The only tangible logging

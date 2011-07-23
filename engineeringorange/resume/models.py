@@ -8,8 +8,13 @@
 # into your database.
 
 from django.contrib.auth.models import User
-from django.db import models
 from django.forms import ModelForm
+from django.db import models
+#<<<<<<< HEAD
+from django.forms import ModelForm
+#=======
+from django import forms
+#>>>>>>> 111baebf843640df23fd854d8b565c8472de6f3a
 import datetime 
 
 #Static Tables start here
@@ -31,7 +36,7 @@ class Accounts(models.Model):
     class Meta:
         db_table = u'accounts'
     def __unicode__ (self):
-        return unicode((self.userid,self.email))
+        return unicode((self.email))
 
 class Course(models.Model):
     courseid = models.AutoField(primary_key=True, db_column='courseID') # Field name made lowercase.
@@ -128,8 +133,8 @@ class Jobseeker(models.Model):
     city = models.CharField(max_length=120, blank=True,null=True)
     telephonenumber = models.CharField(max_length=60, db_column='telephoneNumber', blank=True,null=True) # Field name made lowercase.
     mobilenumber = models.CharField(max_length=60, db_column='mobileNumber', blank=True,null=True) # Field name made lowercase.
-    photo = models.FileField(upload_to='js_photos',blank=True,null=True)
-    resume = models.FileField(upload_to='resumes',blank=True,null=True)
+    #photo = models.FileField(upload_to='js_photos',blank=True,null=True)
+    #resume = models.FileField(upload_to='resumes',blank=True,null=True)
     birthday = models.DateField(default='1900-01-01')
     gender = models.CharField(max_length=18,choices=genderChoices,default='male')
     url = models.CharField(max_length=240, blank=True,null=True)
@@ -138,7 +143,11 @@ class Jobseeker(models.Model):
     class Meta:
         db_table = u'jobseeker'
     def __unicode__(self):
+#<<<<<<< HEAD
         return unicode((self.userid,self.firstname,self.lastname))
+#=======
+        return unicode((self.userid))
+#>>>>>>> 111baebf843640df23fd854d8b565c8472de6f3a
     
 class Jsskills(models.Model):
     jsskillsid = models.AutoField(primary_key=True)
@@ -255,11 +264,24 @@ class Announcement (models.Model):
     datePosted = models.DateTimeField(default=datetime.datetime.now(),blank=True)
     annType = models.CharField(max_length=1,choices=types)
     
+    class Meta:
+        db_table = u'announcement'
+    
     def __unicode__(self):
         return unicode((self.annID,self.annText))
 
 class SearchForm(ModelForm):
+
     class Meta:
         model = Jobseeker
         fields = ('courseid', 'batch', 'city')
 
+	courseid = forms.ModelChoiceField(queryset=Course.objects.all(), label="Course")
+	class Meta:
+		model = Jobseeker
+		fields = ('courseid', 'batch', 'city')
+
+class StudentForm(ModelForm):
+	class Meta:
+		model = Jobseeker
+		fields = ('firstname', 'lastname')

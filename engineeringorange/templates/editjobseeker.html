@@ -1,4 +1,4 @@
-{% extends 'baseuser.html' %} 
+{% extends 'basejobseeker.html' %} 
  {% block head_title %} Engineering Orange {% endblock %}
  {% block title %} Edit Account Details{% endblock %}
  
@@ -12,10 +12,13 @@
  {% endblock %}
  
  {% block content %}
+	<fieldset>
 	<form action="#" method="post">
-		<fieldset/>
-		<legend>Job Description</legend> <br>
+		
+		
 			{% csrf_token %}{{ form.as_p }}
 		<p><input type="submit" name="send" class="formbutton" value="Edit" /></p>
 	</form>
+	
+	</fieldset>
  {% endblock %}

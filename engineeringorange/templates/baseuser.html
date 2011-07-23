@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+			{% block sidebar %}
+			{% if user.usertype == 'employer' %}
+			<ul>	
+				<li>
+					<h4>Account Details</h4>
+						<ul>
+							<li><a href="/employer/{{user.userid}}" title="View Announcements">View Announcements</a></li>
+							<li><a href="/employer/editaccount/{{user.userid}}" title="Edit your Account">Edit Account Details</a></li>
+						</ul>
+				</li>
+				<li>
+					<h4>Messages</h4>							
+						<ul>
+							<li><a href="/compose/{{user.userid}}" title="Compose a message">Compose Message</a></li>
+							<li><a href="/messages/{{user.userid}}" title="View Messages">View Messages</a></li>
+							<li><a href="/messages/sent/{{user.userid}}" title="View Sent Messages">View Sent Messages</a></li>
+						</ul>
+				</li>				
+				<li>
+					<h4>Job Posts</h4>
+	
+					<ul>
+						<li><a href="/jobpost/add/{{user.userid}}">Add a Job Post</a></li>
+	
+						<li><a href="/jobpost/{{user.userid}}" title="View Job Posts">View All Job Posts</a></li>
+					</ul>
+				</li>
+				
+				<li>
+	
+					<h4>Student Resumes</h4>
+					<ul>
+					  <li><a href="/searchresume/{{user.userid}}" title="Search for Resumes">Search for Student Resumes</a></li>
+					  <li><a href="/searcharesume/{{user.userid}}" title="Search for a Specifice Resume">View Specific Student Resume</a></li>
+					</ul>
+				</li>
+			</ul>
+			{% else %}
+			<ul>	
+				<li>
+					<h4>Account Details</h4>
+						<ul>
+							<li><a href="/jobseeker/{{user.userid}}" title="View Announcements">View Announcements</a></li>
+							<li><a href="/jobseeker/editaccount/{{user.userid}}" title="Edit your Account">Edit Account Details</a></li>
+						</ul>
+				</li>
+				<li>
+					<h4>Messages</h4>							
+						<ul>
+							<li><a href="/compose/{{user.userid}}" title="Compose a message">Compose Message</a></li>
+							<li><a href="/messages/{{user.userid}}" title="View Messages">View Messages</a></li>
+							<li><a href="/messages/sent/{{user.userid}}" title="View Sent Messages">View Sent Messages</a></li>
+						</ul>
+				</li>				
+				<li>
+					<h4>Job Posts</h4>
+	
+					<ul>
+						<li><a href="/jobpost/{{user.userid}}" title="View Job Posts">View All Job Posts</a></li>
+					</ul>
+				</li>
+				
+
+			</ul>
+			{% endif %}
+			 
+			{% endblock %}

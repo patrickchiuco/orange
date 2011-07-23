@@ -1,4 +1,4 @@
-{% extends 'baseemployer.html' %} 
+{% extends 'baseuser.html' %} 
  {% block head_title %} Engineering Orange - View A Resume {% endblock %}
  {% block title %} Search For Resumes{% endblock %}
   
@@ -10,18 +10,40 @@
 		</form>
 	</fieldset>
 	
-	{% if query %}
+	{% if course or batch or city %}
     <h2>Results:</h2>
-
     {% if results %}
-      <ul>
-      {% for resume in results %}
-        <li><h3><a href = "/resume/{{user.userid}}/{{resume.userid.userid}}">{{ resume.firstname|escape }} {{ resume.lastname|escape }}</a></h3></li><br>
-		<b>{{resume.courseid|escape}}, class of {{resume.batch|escape}} <p/> <p/></b>
-		<b>Objective: </b>{{resume.objective|escape}} <br>
-		<fieldset/>
-      {% endfor %}
-      </ul>
+	<p align="right"><a href="/resume/exporttocsv/{{course}}/{{batch}}/{{city}}">Save Results to CSV</a></p>
+		<table id = "results">
+			<tr>
+				<th/>Last Name
+				<th/>First Name
+				<th/>Course
+				<th/>Batch
+				<th/>Telephone Number
+				<th/>Mobile Number
+				<th/>Permanent Address
+			</tr>	
+			{% for resume in results %}
+				<tr onmouseover="ChangeColor(this, true);" onmouseout="ChangeColor(this, false);" onclick="Nav('/resume/{{user.userid}}/{{resume.userid.userid}}');">
+					<td>{{ resume.lastname|escape }}</td>
+					<td>{{ resume.firstname|escape }}</td>
+					<td>{{resume.courseid|escape}}</td>
+					<td>{{resume.batch|escape}} </td>
+					<td>{{resume.telephonenumber|escape}}</td>
+					<td>{{resume.mobilenumber|escape}}</td>
+					<td>{{resume.permanentaddress|escape}}</td>
+				</tr>
+			{% endfor %}
+		</table>
+		<div id="pageNavPosition" align="right"></div>	
+		<script type="text/javascript">
+			var pager = new Pager('results', 30); 
+			pager.init(); 
+			pager.showPageNav('pager', 'pageNavPosition'); 
+			pager.showPage(1);
+		</script>
+
     {% else %}
       <p><h4/>No Resumes found</p>
     {% endif %}
