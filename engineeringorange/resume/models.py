@@ -9,6 +9,7 @@
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.forms import ModelForm
 import datetime 
 
 #Static Tables start here
@@ -137,7 +138,7 @@ class Jobseeker(models.Model):
     class Meta:
         db_table = u'jobseeker'
     def __unicode__(self):
-        return unicode(self.userid)
+        return unicode((self.userid,self.firstname,self.lastname))
     
 class Jsskills(models.Model):
     jsskillsid = models.AutoField(primary_key=True)
@@ -146,7 +147,7 @@ class Jsskills(models.Model):
     class Meta:
         db_table = u'jsskills'
     def __unicode__(self):
-        return unicode(self.userid,self.skillid)
+        return unicode((self.userid,self.skillid))
 
 class Jsaffiliations(models.Model):
     userid = models.ForeignKey(Accounts, db_column='userID',primary_key=True) # Field name made lowercase.
@@ -157,7 +158,7 @@ class Jsaffiliations(models.Model):
     class Meta:
         db_table = u'jsaffiliations'
     def __unicode__(self):
-        return unicode(self.userid,self.organization,self.position)
+        return unicode((self.userid,self.organization,self.position))
 
 class Jsawards(models.Model):
     userid = models.ForeignKey(Accounts, db_column='userID',primary_key=True) # Field name made lowercase.
@@ -167,7 +168,7 @@ class Jsawards(models.Model):
     class Meta:
         db_table = u'jsawards'
     def __unicode__(self):
-        return unicode(self.userid,self.institution,self.award)
+        return unicode((self.userid,self.institution,self.award))
 
 class Jseducation(models.Model):
     userid = models.ForeignKey(Accounts, db_column='userID',primary_key=True) # Field name made lowercase.
@@ -179,7 +180,7 @@ class Jseducation(models.Model):
     class Meta:
         db_table = u'jseducation'
     def __unicode__(self):
-        return unicode(self.userid,self.institution,self.degree)
+        return unicode((self.userid,self.institution,self.degree))
 
 
 class Jsemployment(models.Model):
@@ -192,7 +193,7 @@ class Jsemployment(models.Model):
     class Meta:
         db_table = u'jsemployment'
     def __unicode__(self):
-        return unicode(self.userid,self.employer,self.position)
+        return unicode((self.userid,self.employer,self.position))
 
 
 class Jsprojects(models.Model):
@@ -203,7 +204,7 @@ class Jsprojects(models.Model):
     class Meta:
         db_table = u'jsprojects'
     def __unicode__(self):
-        return unicode(self.projectid,self.title)
+        return unicode((self.projectid,self.title))
 
 
 class Jsseminars(models.Model):
@@ -214,7 +215,7 @@ class Jsseminars(models.Model):
     class Meta:
         db_table = u'jsseminars'
     def __unicode__(self):
-        return unicode(self.userid,self.title)
+        return unicode((self.userid,self.title))
 
 
 
@@ -229,7 +230,7 @@ class Messages(models.Model):
     class Meta:
         db_table = u'messages'
     def __unicode__(self):
-        return unicode(self.msgid,self.subject)
+        return unicode((self.msgid,self.subject))
 
 
 class Settings(models.Model):
@@ -255,6 +256,10 @@ class Announcement (models.Model):
     annType = models.CharField(max_length=1,choices=types)
     
     def __unicode__(self):
-        return unicode(self.annID,self.annText)
+        return unicode((self.annID,self.annText))
 
+class SearchForm(ModelForm):
+    class Meta:
+        model = Jobseeker
+        fields = ('courseid', 'batch', 'city')
 

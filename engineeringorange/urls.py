@@ -31,7 +31,7 @@ urlpatterns += patterns('',
     url(r'^jobpost/delete/(?P<userid>[a-z]*)/(?P<jobid>\d+)/$', 'engineeringorange.jobposts.views.deletepost'),
     #Resume URLS
     url(r'^searchresume/(?P<userid>[a-z]*)/$', 'engineeringorange.resume.views.search'),
-    url(r'^resume/(?P<userid>[a-z]*)/(?P<stdid>\d+)/$', 'engineeringorange.resume.views.resume'),
+    url(r'^resume/(?P<userid>[a-z]*)/(?P<stdid>.*)/$', 'engineeringorange.resume.views.resume'),
     #Employer URLS
     url(r'^employer/editaccount/(?P<userid>[a-z]*)/$', 'engineeringorange.employer.views.editaccount'),
     url(r'^employer/messages/(?P<userid>[a-z]*)/$', 'engineeringorange.employer.views.viewall'),

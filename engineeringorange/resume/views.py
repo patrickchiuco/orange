@@ -2,9 +2,10 @@
 from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib import auth
-from resume.models import Accounts,Jobseeker
+from resume.models import *
 from resume.forms import RegistrationForm, LogInForm
 import datetime
 
@@ -40,12 +41,55 @@ def register (request):
             user.is_active = True
             newAccount = Accounts(userid=request.POST['username'],email=request.POST['email'],usertype='jobseeker',userlink=user)
             newJobseeker = Jobseeker(userid=newAccount,firstname=request.POST['firstName'],lastname=request.POST['lastName'])
-            #user.save()
-            #newAccount.save()
-            #newJobseeker.save()
+            newAccount.save()
+            newJobseeker.save()
             #print('hello')
             return HttpResponse("hello user has been created")
     else:
         regForm = RegistrationForm()
     return render_to_response('registration/registration.html',{'form':regForm},context_instance=RequestContext(request))
+
+def search(request, userid):
+    account = get_object_or_404(Accounts, userid=userid)
+    
+    form = SearchForm(request.POST or None)
+    course = request.GET.get('courseid', 0)
+    batch = request.GET.get('batch', '')
+    city = request.GET.get('city', '')
+
+    print(course)
+    print(batch)
+    print(city)
+    if course or batch or city:
+        print("I got here!")
+        if course != '':
+            qset = (
+                Q(courseid=course) | 
+                Q(batch=batch)  |
+                Q(city=city)
+            )
+        else:
+            qset = (
+                Q(batch=batch) | 
+                Q(city=city)
+            )
+            course = 15                
+        print qset
+        results = Jobseeker.objects.filter(qset).distinct()
+    else:
+        results = []
+
+    return render_to_response("searchresume.html/", {"user": account, "form": form, "results": results, "query":course},   context_instance=RequestContext(request))
+
+        
+def resume(request, userid, stdid):
+    account = Accounts.objects.filter(userid=userid)
+    resume = Jobseeker.objects.filter(userid=stdid)
+    aff = Jsaffiliations.objects.filter(userid=stdid)
+    awards = Jsawards.objects.filter(userid=stdid)
+    education = Jseducation.objects.filter(userid=stdid)
+    employment = Jsemployment.objects.filter(userid=stdid)
+    project = Jsprojects.objects.filter(userid=stdid)
+    seminar = Jsseminars.objects.filter(userid=stdid)
+    return render_to_response("resume.html/", {"user": account, "resume": resume, "affliations": aff, "awards":awards, "education": education, "employment": employment, "project": project, "seminar": seminar})
         
