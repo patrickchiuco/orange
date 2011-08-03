@@ -1,0 +1,432 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/css; charset=iso-8859-1" />
+<style>
+/** global **/
+body {
+	background:#fff url('body_bg.jpg') repeat-x;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#555;
+	margin:0 auto;
+	padding:0;
+}
+* {
+	margin:0;
+	padding:0;
+}
+
+
+/** element defaults **/
+table {
+	width: 675px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	text-align:left;
+	text-decoration: none;
+}
+th, td {
+	padding:5px 10px;
+}
+th {
+	color:#fff;
+	border-top:3px solid #F66605;
+	background-color:#FE8100;
+}
+td {
+	border-bottom:1px solid #f4f4f4;
+}
+
+code, blockquote {
+	display:block;
+	border-left:5px solid #ddd;
+	padding:10px;
+	margin-bottom:20px;
+}
+blockquote p {
+	font-style:italic;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	margin:0;
+	height: 1%;
+}
+p {
+	line-height:1.9em;
+	margin-bottom:20px;
+}
+a {
+	color:#666;
+}
+a:hover {
+	color:#F66605;
+}
+a:focus {
+	color:#000;
+	outline:none;
+}
+fieldset {
+	display:block;
+	border:none;
+	border-top:1px solid #e0e0e0;
+}
+fieldset legend {
+	font-weight:bold;
+	font-size:13px;
+	padding-right:10px;
+	color:#222;
+}
+fieldset form {
+	padding-top:15px;
+}
+fieldset p label {
+	float:left;
+	width:150px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+fieldset form input, fieldset form select, fieldset form textarea {
+	padding:5px;
+	color:#333333;
+	font-size:13px;
+	font-family:Arial, Helvetica, sans-serif;
+	border:1px solid #ddd;
+}
+form input.formbutton {
+	margin-left:150px;
+	background:#FE8100;
+	border:none;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#ffffff;
+	font-weight:bold;
+	padding:5px 10px;
+	font-size:12px;
+}
+h1 {
+	font-size:45px;
+}
+h2 {
+	color:#2f2f2f;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:30px;
+	font-weight:bold;
+	letter-spacing:-2px;
+	padding:0 0 5px;
+	margin:0;
+}
+h3 {
+	color:#666666;
+	font-size:20px;
+	padding-bottom:10px;
+}
+h4 {
+	padding-bottom:10px;
+	font-size:15px;
+	color:#F66605;
+}
+h5 {
+	padding-bottom:10px;
+	font-size:13px;
+	color:#666666;
+}
+h6 {
+	padding-bottom:10px;
+	font-size:15px;
+	color:#666666;
+}
+ul, ol {
+	margin:0 0 35px 35px;
+}
+li {
+	padding-bottom:5px;
+}
+
+/** wrapper **/
+div#wrapper {
+	width:960px;
+	margin:0 auto;
+	padding:0;
+}
+
+/** sitename+nav **/
+div#top {
+	padding-top:35px;
+	height:100px;
+}
+div#top h1 {
+	float:left;
+	font-size:51px;
+	padding-bottom:15px;
+}
+div#top h1 a {
+	color:#666;
+	font-weight:normal;
+	letter-spacing:-4px;
+	float:left;
+	text-decoration:none;
+}
+div#top ul {
+	float:right;
+	list-style:none;
+	margin:0 25px 0;
+	padding:67px 0 0;
+}
+div#top ul li {
+	color:#777; 
+	float:left;
+	display:block;
+	padding:0;
+}
+div#top ul li a {
+	padding:10px 15px;
+	float:left;
+	color:#777;
+	text-decoration:none;
+	display:block;
+	font-size:12px;
+	font-weight:bold;
+	text-transform:uppercase;
+}
+div#top ul li.selected a,
+div#top ul li.selected a:hover {
+	border:none;
+	background-color:#F66605;
+	text-decoration:none;
+}
+div#top ul li a:hover {
+	text-decoration:underline;
+}
+
+
+/** body **/
+div#body {
+	background-color:#ffffff;
+	padding:10px;
+	margin-top:25px;
+}
+
+/** content+sidebar styles **/
+div#content {
+	width:675px;
+}
+div#content {
+	font-size:12px;
+}
+div.column-left {
+	float:left;
+	margin-right:20px;
+}
+div.column-right {
+	float:right;
+}
+div#sidebar {
+	width:230px;
+}
+div#sidebar ul {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+div#sidebar li ul {
+	border-top:1px solid #ddd;
+	margin-bottom:20px;
+}
+div#sidebar li ul li {
+	display:block;
+	padding:7px 15px;
+	border-bottom:1px solid #ddd;
+	color:#777;
+}
+div#sidebar li ul li a {
+	text-decoration:none;
+	font-family:"Trebuchet MS", Verdana, Arial;
+	font-weight:bold;
+}
+div#sidebar li ul li a:hover {
+	text-decoration:underline;
+}
+div#sidebar h4 { 
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:12px;
+	text-transform:uppercase;
+	font-weight:bold;
+	margin:0;
+	padding:7px 10px;
+}
+
+
+div#notice{
+	background:#F7B46F;
+	border: 1px solid #FE8100;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#000000;
+	padding:5px 10px;
+	font-size:14px;
+}
+
+
+
+/** footer **/
+div#footer {
+	padding-top:30px;
+	color:#FE8100;
+	font-weight: bold;
+}
+div#footer a {
+	color:#FE8100;
+	font-weight:bold;
+	text-decoration:underline;
+}
+
+/** clear **/
+.clear:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clear {
+	display: inline-block;
+}
+.clear {
+	display: block;
+}
+
+/** pagination **/
+.pg-normal {
+ 	color: #222;
+    font-weight: normal;
+	text-decoration: none;    
+	cursor: pointer;
+}
+.pg-selected {
+	color: #222;
+	font-weight: bold;        
+	text-decoration: underline;
+	cursor: pointer;
+}
+</style>
+
+<script type="text/javascript">
+		    function ChangeColor(tableRow, highLight){
+			    if (highLight){
+			      tableRow.style.backgroundColor = '#F7B46F';
+			    }else{
+			      tableRow.style.backgroundColor = '#ffffff';
+			    }
+		    }
+
+		    function Nav(theUrl){
+		  	    document.location.href = theUrl;
+		    }
+			
+			function Pager(tableName, itemsPerPage) {
+				this.tableName = tableName;
+				this.itemsPerPage = itemsPerPage;
+				this.currentPage = 1;
+				this.pages = 0;
+				this.inited = false;
+			
+				this.showRecords = function(from, to) {        
+				var rows = document.getElementById(tableName).rows;
+				// i starts from 1 to skip table header row
+				for (var i = 1; i < rows.length; i++) {
+					if (i < from || i > to)  
+						rows[i].style.display = 'none';
+					else
+						rows[i].style.display = '';
+				}
+				}
+			
+				this.showPage = function(pageNumber) {
+					 if (! this.inited) {
+					  alert("not inited");
+					  return;
+					 }
+
+					var oldPageAnchor = document.getElementById('pg'+this.currentPage);
+					oldPageAnchor.className = 'pg-normal';
+					
+					this.currentPage = pageNumber;
+					var newPageAnchor = document.getElementById('pg'+this.currentPage);
+					newPageAnchor.className = 'pg-selected';
+					
+					var from = (pageNumber - 1) * itemsPerPage + 1;
+					var to = from + itemsPerPage - 1;
+					this.showRecords(from, to);
+				}   
+			
+				this.prev = function() {
+					if (this.currentPage > 1)
+						this.showPage(this.currentPage - 1);
+				}
+			
+				this.next = function() {
+					if (this.currentPage < this.pages) {
+						this.showPage(this.currentPage + 1);
+					}
+				}                        
+			
+				this.init = function() {
+					var rows = document.getElementById(tableName).rows;
+					var records = (rows.length - 1); 
+					this.pages = Math.ceil(records / itemsPerPage);
+					this.inited = true;
+				}
+
+				this.showPageNav = function(pagerName, positionId) {
+				 if (! this.inited) {
+				  alert("not inited");
+				  return;
+				 }
+				 var element = document.getElementById(positionId);
+				 
+				 var pagerHtml = '<span onclick="' + pagerName + '.prev();" class="pg-normal"> &#171 Prev </span> | ';
+					for (var page = 1; page <= this.pages; page++) 
+						pagerHtml += '<span id="pg' + page + '" class="pg-normal" onclick="' + pagerName + '.showPage(' + page + ');">' + page + '</span> | ';
+					pagerHtml += '<span onclick="'+pagerName+'.next();" class="pg-normal"> Next &#187;</span>';            
+					
+					element.innerHTML = pagerHtml;
+				}
+			}
+</script>
+
+<title>{% block head_title %}Engineering Orange{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="orange.css" />
+</head>
+<body>
+<div id="wrapper">
+
+	<div id="top" class="clear">
+		<h1><a href="">Engineering Orange</a></h1>
+		<ul>
+			<li><a href="/employer/{{user.userid}}">home</a></li>
+			<li><a href="/aboutorange/">about us</a></li>
+			<li><a href="/contactus/">contact</a></li>
+			<li><a href="">Logout</a></li>			
+		</ul>
+		
+		
+	</div>
+
+	
+	<div id="body" class="clear">
+		<div id="sidebar" class="column-right">
+			{% block sidebar %}
+			{% endblock %}
+		</div>
+		
+		<div id="content" class="column-left">
+			 <h3>{% block title %}Page Title here{% endblock %}</h3>
+            {% block content %}
+
+            {% endblock %}
+		</div>
+	</div>
+	
+	<div id="footer" class="clear">				
+	<p align = "center">
+			&copy; 2011 Engineering Orange | <a href = "#"> Home </a> | <a href = "#"> About </a> | <a href = "#"> Contact Us </a>
+	</p>
+	</div>
+</body>
