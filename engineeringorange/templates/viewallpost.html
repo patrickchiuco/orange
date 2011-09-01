@@ -1,35 +1,61 @@
-{% extends 'baseuser.html' %} 
-	{% block head_title %} Engineering Orange - View All Job Posts{% endblock %}
-	
-	{% block title %}<h3/>Job Posts{% endblock %}
-	
-	{% block content %}
-		{% if posts %}
-			<table id = "results">
-				<tr>
-					<th/>Job Post
-					<th/>Description
+{% extends 'baseuser.html' %}
+{% block head_title %} Engineering Orange - View All Job Posts{% endblock %}
+
+{% block title %}
+	<table>
+		<tr>
+			<td id="holder" witdh=400> <h3>{% if user.usertype == 'jobseeker'%}Available{% endif %} Job Posts</h3> </td>
+			<td id="holder">
+				<form class = "search" action="#" method="get" align = "right">
+					<input type="text" name="title" style="border:1px solid #ddd; font-size:14px; padding:3px;" value="{{title}}" />
+					<input type="submit" class="floatbutton" value="Search for Job Posts"> 
+				</form>
+			</td>
+		</tr>
+	</table>
+{% endblock %}
+
+{% block content %}
+	{% if posts %}
+		<table id = "results">
+			<tr>
+				<th width=170 />Job Post
+				<th/>Description
+				{% if user.usertype == 'employer'%}
 					<th colspan=2> Action </th>
-				</tr>	
-				{% for post in posts%}
-					<tr onmouseover="ChangeColor(this, true);" onmouseout="ChangeColor(this, false);" onclick="Nav('/jobpost/view/{{user.userid}}/{{post.jobid.jobid}}');">
-						<td><b/>{{post.jobid.title}}</td>
-						<td>{{post.description}}</td>
-						<td><a href = "/jobpost/edit/{{user.userid}}/{{post.jobid.jobid}}">edit</a></td>
-						<td><a href = "/jobpost/delete/{{user.userid}}/{{post.jobid.jobid}}" onclick="return confirm('Are you sure you want to delete?')">delete</td>
-					</tr>
-				{% endfor %}
-	        </table>
-			<div id="pageNavPosition" align = "right"></div>
-			
-			<script type="text/javascript">
-				var pager = new Pager('results', 20); 
-				pager.init(); 
-				pager.showPageNav('pager', 'pageNavPosition'); 
-				pager.showPage(1);
-			</script>
-        {% else %}
-            <p>There are no posts.</p>
+				{% endif %}
+			</tr>
+			{% for post in posts%}
+				<tr onmouseover="ChangeColor(this, true);" onmouseout="ChangeColor(this, false);" onclick="Nav('/jobpost/view/{{user.userid}}/{{post.jobid.jobid}}');">
+					<td><b/>{{post.jobid.title}}</td>
+					<td>{{post.description}}</td>
+					{% if user.usertype == 'employer'%}
+					<td>
+						<form action= "/jobpost/edit/{{user.userid}}/{{post.jobid.jobid}}">
+							{% csrf_token %}
+							<input type="submit" name="send" class="floatbutton" value="Edit" />
+						</form>
+					</td>
+					<td>
+						<form action= "/jobpost/delete/{{user.userid}}/{{post.jobid.jobid}}/" method="post">
+							{% csrf_token %}
+							<input type="submit" name="send" class="floatbutton" value="Delete" onclick="return confirm('Are you sure you want to delete?')" />
+						</form>
+					</td>
+				{% endif %}
+				</tr>
+			{% endfor %}
+		</table>
+		<div id="pageNavPosition" align = "right"></div>
+
+		<script type="text/javascript">
+		var pager = new Pager('results', 20);
+		pager.init();
+		pager.showPageNav('pager', 'pageNavPosition');
+		pager.showPage(1);
+		</script>
+	{% else %}
+		<p>There are no posts to diplay.</p>
         {% endif %}
 
     {% endblock %}

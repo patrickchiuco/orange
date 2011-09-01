@@ -2,9 +2,10 @@ from engineeringorange.employer.models import *
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render_to_response, get_object_or_404
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required
 def editaccount(request, userid):
 	account = get_object_or_404(Accounts, userid=userid)
 	emp = get_object_or_404(Employer, userid=userid)
@@ -19,17 +20,14 @@ def editaccount(request, userid):
 		form = EmployerForm(instance = emp)
 	return render_to_response('editemployer.html', {'user': account, 'form': form}, context_instance=RequestContext(request))
 
+@login_required
 def index(request, userid):
 	account = get_object_or_404(Accounts, userid=userid)
-	emp = get_object_or_404(Employer, userid=userid)
-	return render_to_response('employer.html', {'employer': emp, 'user': account, 'announcements': Announcement.objects.filter(annType='e').distinct()[:10]})
-
-def viewall(request, userid):
-	account = get_object_or_404(Accounts, userid=userid)
-	return render_to_response('inbox.html', {'user': account, 'messages': Messages.objects.filter(toid=account).distinct()[:20]})
-
-def viewmsg(request, userid, msgid):
-	account = get_object_or_404(Accounts, userid=userid)
-	message = get_object_or_404(Messages, msgid=msgid)
-	return render_to_response('message.html', {'user': account, 'message': message})
-	
+	print account.usertype
+	if account.usertype == 'employer':
+		emp = get_object_or_404(Employer, userid=userid)
+		return render_to_response('employer.html', {'employer': emp, 'user': account, 'announcements': Announcement.objects.exclude(annType='j').order_by('datePosted').reverse()})
+	if account.usertype == 'jobseeker':
+		seeker = get_object_or_404(Jobseeker, userid=userid)
+		return render_to_response('jobseeker.html', {'jobseeker': seeker, 'user': account, 'announcements': Announcement.objects.exclude(annType='e').distinct().order_by('datePosted').reverse()})
+	return HttpResponseRedirect('/')

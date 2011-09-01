@@ -21,30 +21,35 @@ urlpatterns = patterns('resume.views',
 
 urlpatterns += patterns('',
     url(r'^media/(?P<path>.*)$','django.views.static.serve',{'document_root':'media'}),
-    url(r'^$',views.login),
-    url(r'^accounts/login/$',views.login),
-    #url(r'^accounts/logout/$',logout),
+    
+    #Homepage
+    url(r'^$',views.login,{'logout':False}),
+    
+    #Logging URL's
+    url(r'^accounts/login/$',views.login,{'logout':False}),
+    url(r'^accounts/logout/$',logout,{'next_page':'login.html'}),
+    url(r'accounts/logout/login.html',views.login,{'logout':True}),
     url(r'register/',views.register),
+    url(r'resetpassword', views.sendpassword),
+    url(r'accounts/changepassword/(?P<userid>.*)/$', views.changepassword),
+
     #Jobpost URLS
     url(r'^jobpost/add/(?P<userid>.*)/$', 'engineeringorange.jobposts.views.addpost'),
     url(r'^jobpost/view/(?P<userid>.*)/(?P<jobid>.*)/$', 'engineeringorange.jobposts.views.viewpost'),
     url(r'^jobpost/edit/(?P<userid>.*)/(?P<jobid>.*)/$','engineeringorange.jobposts.views.editpost'),
     url(r'^jobpost/delete/(?P<userid>.*)/(?P<jobid>.*)/$', 'engineeringorange.jobposts.views.deletepost'),
-    url(r'^jobpost/searchjobposts/(?P<userid>.*)/$', 'engineeringorange.jobposts.views.searchJobPosts'), 
-    url(r'^jobpost/viewsearchresults/(?P<userid>.*)/$', 'engineeringorange.jobposts.views.viewsearchresults'), 
     url(r'^jobpost/(?P<userid>.*)/$', 'engineeringorange.jobposts.views.viewall'),
-    
-    #Resume URLS    
 
+    #Resume URLS
     url(r'^searchresume/(?P<userid>.*)/$', 'engineeringorange.resume.views.search'),
-	url(r'^searcharesume/(?P<userid>.*)/$', 'engineeringorange.resume.views.searchone'),
+    url(r'^searcharesume/(?P<userid>.*)/$', 'engineeringorange.resume.views.searchone'),
     url(r'^resume/(?P<userid>.*)/(?P<stdid>.*)/$', 'engineeringorange.resume.views.resume'),
-	url(r'^resume/exporttocsv/(?P<courseid>.*)/(?P<batch>.*)/(?P<city>.*)$', 'engineeringorange.resume.views.exporttocsv'),
+    url(r'^resume/exporttocsv/(?P<userid>.*)/(?P<courseid>.*)/(?P<batch>.*)/(?P<city>.*)$', 'engineeringorange.resume.views.exporttocsv'),
 
     #Employer URLS
     url(r'^employer/editaccount/(?P<userid>.*)/$', 'engineeringorange.employer.views.editaccount'),
-    url(r'^employer/messages/(?P<userid>.*)/$', 'engineeringorange.messages.views.viewall'),
     url(r'^employer/(?P<userid>.*)/$', 'engineeringorange.employer.views.index'),
+
     #Message URLS
     url(r'^message/delete/(?P<userid>.*)/(?P<msgid>.*)/$', 'engineeringorange.messages.views.delete'),
     url(r'^messages/sent/(?P<userid>.*)/$', 'engineeringorange.messages.views.sent'),
@@ -54,9 +59,31 @@ urlpatterns += patterns('',
     url(r'^messages/(?P<userid>.*)/$', 'engineeringorange.messages.views.viewall'),
     
     #Jobseeker URLS
-    url(r'^jobseeker/editaccount/(?P<userid>.*)/$', 'engineeringorange.jobseeker.views.editaccount'),
-    url(r'^jobseeker/messages/(?P<userid>.*)/$', 'engineeringorange.messages.views.viewall'),
-    url(r'^jobseeker/searchjobposts/(?P<userid>.*)/$', 'engineeringorange.jobseeker.views.searchJobPosts'),
-    url(r'^jobseeker/(?P<userid>.*)/$', 'engineeringorange.jobseeker.views.index'),
-    
+     #EDIT
+     url(r'^jobseeker/edit/affiliation/(?P<userid>.*)/(?P<aid>.*)/$', 'engineeringorange.jobseeker.views.editaffiliation'),
+     url(r'^jobseeker/edit/award/(?P<userid>.*)/(?P<aid>.*)/$', 'engineeringorange.jobseeker.views.editaward'),
+     url(r'^jobseeker/edit/education/(?P<userid>.*)/(?P<educid>.*)/$', 'engineeringorange.jobseeker.views.editeducationbg'),
+     url(r'^jobseeker/edit/employment/(?P<userid>.*)/(?P<empid>.*)/$', 'engineeringorange.jobseeker.views.editemployment'),
+     url(r'^jobseeker/edit/project/(?P<userid>.*)/(?P<pid>.*)/$', 'engineeringorange.jobseeker.views.editproject'),
+     url(r'^jobseeker/edit/seminar/(?P<userid>.*)/(?P<sid>.*)/$', 'engineeringorange.jobseeker.views.editseminar'),
+
+     #DELETE
+     url(r'^jobseeker/delete/affiliation/(?P<userid>.*)/(?P<aid>.*)/$', 'engineeringorange.jobseeker.views.deleteaffiliation'),
+     url(r'^jobseeker/delete/award/(?P<userid>.*)/(?P<aid>.*)/$', 'engineeringorange.jobseeker.views.deleteaward'),
+     url(r'^jobseeker/delete/education/(?P<userid>.*)/(?P<educid>.*)/$', 'engineeringorange.jobseeker.views.deleteeducationbg'),
+     url(r'^jobseeker/delete/employment/(?P<userid>.*)/(?P<empid>.*)/$', 'engineeringorange.jobseeker.views.deleteemployment'),
+     url(r'^jobseeker/delete/project/(?P<userid>.*)/(?P<pid>.*)/$', 'engineeringorange.jobseeker.views.deleteproject'),
+     url(r'^jobseeker/delete/seminar/(?P<userid>.*)/(?P<sid>.*)/$', 'engineeringorange.jobseeker.views.deleteseminar'),
+
+     #ADD
+     url(r'^jobseeker/viewall/affiliations/(?P<userid>.*)/$', 'engineeringorange.jobseeker.views.addaffiliation'),
+     url(r'^jobseeker/viewall/awards/(?P<userid>.*)/$', 'engineeringorange.jobseeker.views.addaward'),
+     url(r'^jobseeker/viewall/education/(?P<userid>.*)/$', 'engineeringorange.jobseeker.views.addeducationbg'),
+     url(r'^jobseeker/viewall/employment/(?P<userid>.*)/$', 'engineeringorange.jobseeker.views.addemployment'),
+     url(r'^jobseeker/viewall/projects/(?P<userid>.*)/$', 'engineeringorange.jobseeker.views.addproject'),
+     url(r'^jobseeker/viewall/seminars/(?P<userid>.*)/$', 'engineeringorange.jobseeker.views.addseminar'),
+
+     #OTHERS
+     url(r'^jobseeker/editaccount/(?P<userid>.*)/$', 'engineeringorange.jobseeker.views.editaccount'),
+     url(r'^jobseeker/(?P<userid>.*)/$', 'engineeringorange.jobseeker.views.index'),
 )

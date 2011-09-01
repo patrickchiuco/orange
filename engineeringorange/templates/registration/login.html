@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Engineering Orange</title>
+	<style>
+		#wrapper{
+			height: 30em;
+			position: relative;
+			top:auto;
+			bottom: auto;
+			background-color: blue;
+		}
+		
+	</style>
+	<input type="hidden" id="refreshed" value="no">
+	<script type="text/javascript">
+		onload=function(){
+		var e=document.getElementById("refreshed");
+		if(e.value=="no")e.value="yes";
+		else{e.value="no";location.reload();}
+		}
+	</script>
+</head>
+	<div id="wrapper">
+		<div>
+			{% if form.messages.errors %}
+			{{ form.messages.errors }}
+			{% endif %}	
+		</div>
+		<form action="", method="post">
+			{% csrf_token%}
+			<table>
+			{{form.as_table}}		
+			</table>
+			<input type='submit' value='login'/>
+		</form>
+	</div>
+</html>

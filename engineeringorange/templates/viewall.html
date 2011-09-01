@@ -1,0 +1,205 @@
+ {% extends 'baseuser.html' %}
+ {% block head_title %} Engineering Orange {% endblock %}
+ {% block title %}
+	<h3>
+	{% if education %}
+		Educational Background
+	{% endif %}
+	</h3>
+ {% endblock %}
+ 
+ {% block content %}
+		{% if education or employment or projects or aff or awards or seminars%}
+			<table id = "results">
+			{% for educ in education%}
+				<tr>
+					<td id = "holder" width = 180> {{educ.startdate}} - {% if educ.enddate %}{{educ.enddate}}{% else %} present {% endif%}: </td>
+					<td id = "holder"> {{educ.institution}} </td>
+					<td id = "holder">
+					<form action= "/jobseeker/edit/education/{{user.userid}}/{{educ.id}}/">
+					{% csrf_token %}
+					<input type="submit" name="send" class="floatbutton" value="Edit" />
+					</form>
+					</td>
+					<td id="holder">
+					<form action= "/jobseeker/delete/education/{{user.userid}}/{{educ.id}}/" method="post">
+					{% csrf_token %}
+					<input type="submit" name="send" class="floatbutton" value="Delete" onclick="return confirm('Are you sure you want to delete?')" />
+					</form>
+					</td>
+				</tr>
+				<tr>
+					<td id = "holder"></td>
+					<td id = "holder">{{educ.degree}}</td>
+					<td id = "holder"> </td>
+					<td id = "holder"> </td>
+				</tr>
+				{% if educ.honors %}
+					<tr>
+						<td id = "holder"></td>
+						<td id = "holder"><ul><li> {{educ.honors}}</li></ul></td>
+						<td id = "holder"></td>
+						<td id = "holder"> </td>
+					</tr>
+				{% endif %}
+			{% endfor %}
+			{% for emp in employment%}
+					<tr>
+						<td id = "holder" width = 180> {{emp.startdate}} - {% if emp.enddate %}{{emp.enddate}}{% else %} present {% endif%}: </td>
+						<td id = "holder"> {{emp.employer}} </td>
+						<td id = "holder" width=60>
+						<form action= "/jobseeker/edit/employment/{{user.userid}}/{{emp.id}}/">
+						{% csrf_token %}
+						<input type="submit" name="send" class="floatbutton" value="Edit" />
+						</form>
+						</td>
+						<td id="holder" width=60>
+						<form action= "/jobseeker/delete/employment/{{user.userid}}/{{emp.id}}/" method="post">
+						{% csrf_token %}
+						<input type="submit" name="send" class="floatbutton" value="Delete" onclick="return confirm('Are you sure you want to delete?')" />
+						</form>
+						</td>
+
+					</tr>
+					<tr>
+						<td id = "holder"></td>
+						<td id = "holder" colspan=3>{{emp.position}}</td>
+					</tr>
+					<tr>
+						<td id = "holder"></td>
+						<td id = "holder" colspan=3><i>{{emp.description}}</i></td>
+					</tr>
+			{% endfor %}	
+			{% if projects %}
+					<tr>
+						<th width = 190>Title</th>
+						<th>Description</th>
+						<th colspan =2> Actions</th<
+					</tr>
+				{% for p in projects%}
+					<tr>
+						<td> {{p.title}} </td>
+						<td><i>{{p.description}}</i></td>
+						<td width=60>
+						<form action= "/jobseeker/edit/project/{{user.userid}}/{{p.id}}/">
+						{% csrf_token %}
+						<input type="submit" name="send" class="floatbutton" value="Edit" />
+						</form>
+						</td>
+						<td width=60>
+						<form action= "/jobseeker/delete/project/{{user.userid}}/{{p.id}}/" method="post">
+						{% csrf_token %}
+						<input type="submit" name="send" class="floatbutton" value="Delete" onclick="return confirm('Are you sure you want to delete?')" />
+						</form>
+						</td>
+
+					</tr>
+				{% endfor %}
+			{% endif %}	
+			{% if aff %}
+					<tr>
+						<th width=180>Duration</th>
+						<th>Organization</th>
+						<th>Position</th>
+						<th colspan=2>Action</th>
+					</tr>
+				{% for a in aff%}
+					<tr>
+						<td> {{a.startdate}} - {% if a.enddate %} {{a.enddate}} {% else %} present {% endif %}</td>
+						<td> {{a.organization}}</td>
+						<td> {% if a.position %}{{a.position}}{% else %} Member {% endif %}</td>
+						<td width=60>
+						<form action= "/jobseeker/edit/affiliation/{{user.userid}}/{{a.id}}/">
+						{% csrf_token %}
+						<input type="submit" name="send" class="floatbutton" value="Edit" />
+						</form>
+						</td>
+						<td width=60>
+						<form action= "/jobseeker/delete/affiliation/{{user.userid}}/{{a.id}}/" method="post">
+						{% csrf_token %}
+						<input type="submit" name="send" class="floatbutton" value="Delete" onclick="return confirm('Are you sure you want to delete?')" />
+						</form>
+						</td>
+					</tr>
+				{% endfor %}
+			{% endif %}
+			{% if awards %}
+					<tr>
+						<th>Award</th>
+						<th>Institution</th>
+						<th>Date Received</th>
+						<th colspan = 2>Action</th>
+					</tr>
+				{% for award in awards%}
+					<tr>
+						<td> {{award.award}} </td>
+						<td> {{award.institution}}</td>
+						<td> {{award.datereceived}}</td>
+						<td width=60>
+						<form action= "/jobseeker/edit/award/{{user.userid}}/{{award.id}}/">
+						{% csrf_token %}
+						<input type="submit" name="send" class="floatbutton" value="Edit" />
+						</form>
+						</td>
+						<td width=60>
+						<form action= "/jobseeker/delete/award/{{user.userid}}/{{award.id}}/" method="post">
+						{% csrf_token %}
+						<input type="submit" name="send" class="floatbutton" value="Delete" onclick="return confirm('Are you sure you want to delete?')" />
+						</form>
+						</td>
+					</tr>
+				{% endfor %}
+			{% endif %}
+			{% if seminars %}
+					<tr>
+						<th width = 180l>Duration</th>
+						<th>Seminar Title</th>
+						<th colspan=2>Action</th>
+					</tr>
+				{% for s in seminars %}
+					<tr>
+						<td> {{s.startdate}} {% if s.enddate %} - {{s.enddate}} {% endif %}</td>
+						<td> {{s.title}}</td>
+						<td width=60>
+						<form action= "/jobseeker/edit/seminar/{{user.userid}}/{{s.id}}/">
+						{% csrf_token %}
+						<input type="submit" name="send" class="floatbutton" value="Edit" />
+						</form>
+						</td>
+						<td width=60>
+						<form action= "/jobseeker/delete/seminar/{{user.userid}}/{{s.id}}/" method="post">
+						{% csrf_token %}
+						<input type="submit" name="send" class="floatbutton" value="Delete" onclick="return confirm('Are you sure you want to delete?')" />
+						</form>
+						</td>
+					</tr>
+				{% endfor %}
+			{% endif %}
+			</table>
+			<div id="pageNavPosition" align="right"></div>
+
+			<script type="text/javascript">
+				var pager = new Pager('results', 10);
+				pager.init();
+				pager.showPageNav('pager', 'pageNavPosition');
+				pager.showPage(1);
+			</script>	
+		{% else %}
+			<h5>You have not updated your {{field}}</h5>
+		{% endif %}
+		
+		{% if form%}
+			<fieldset>
+				<legend><h4>
+					 Add to your {{field}}
+				</h4></legend>
+				<form action="#" method="post">
+						{% csrf_token %}{{ form.as_p }}
+					<p><input type="submit" name="send" class="formbutton" value="Add" /></p>		
+				</form>
+			</fieldset>
+		{% endif%}
+		<form action="/resume/{{user.userid}}/{{user.userid}}" align="right">
+		<input type="submit" name="send" class="floatbutton" value="Go Back to My Resume" />
+		</form>
+{% endblock %}

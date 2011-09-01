@@ -1,55 +1,85 @@
-   {% extends 'baseuser.html' %} 
-    {% block head_title %}{{post.title}}{% endblock %}
-    {% block title %}<h3>{{post.title}}</h2>{% endblock %}
-	
-    {% block content %}
-		{% if form %}
+{% extends 'baseuser.html' %}
+{% block head_title %}{{post.title}}{% endblock %}
+{% block title %}<h3>{{post.title}}</h3>{% endblock %}
+
+{% block content %}
+	{% if form %}
 		<fieldset/>
 		<legend><h4>Employer Details</h4></legend>
 		<b>Company: </b> {{company.companyname}}<br>
 		<b>Industry: </b> {{company.industryid.title}}<br>
 		<b>Contact Number: </b> {{company.telephonenumber}}<br>
 		<p/>
-		{% endif %} 
-		<fieldset/>
-		<legend><h4>Job Description</h4></legend>
-		<pre>{{post.description}}</pre>
-		<p/>
-		
-		<fieldset/>
-		<legend><h4>Job Qualification</h4></legend>
-		<pre>{{qualifications.qualifications}}</pre>
-		<p/>
-		<p/>
-		<p>
+	{% endif %}
+
+	<fieldset/>
+	<legend><h4>Job Description</h4></legend>
+	<p style="white-space:pre">{{post.description}}</p>
+	<p/>
+
+	<fieldset/>
+	<legend><h4>Job Qualification</h4></legend>
+	<p style="white-space:pre">{{qualifications.qualifications}}</p>
+	<p/>
+	<p/>
+
+	{% if form %}
 		{% if not closed %}
-			<b>This post is valid until:</b> {{qualifications.validity}}		
+		<p>
+		<b>This post is valid until:</b> {{qualifications.validity}}
 		</p>
-		{% endif %}	
-		
-		{% if sent%}
-			<div id = "notice">
-				{{sent}}
-			</div>	
-			<BR>	
-		{% endif %}	
-		{% if form %}
-			{% if not closed %}
-				<p align="left">
-					<fieldset>
+		{% endif %}
+	{% endif %}
+
+	{% if sent%}
+		<div id = "notice">
+			{{sent}}
+		</div>
+		<BR>
+	{% endif %}
+	
+	{% if form%}
+		{% if not closed %}
+			<p align="left">
+				<fieldset>
 					<legend><h4>Apply for this Job</h4></legend>
 					<form action="#" method="post">
-							{% csrf_token %}{{ form.as_p }}
+						{% csrf_token %}{{ form.as_p }}
 						<p><input type="submit" name="send" class="formbutton" value="Submit" /></p>
 					</form>
-					</fieldset>
-				</p>
-			{% else %}
-				<div id="notice">
-				This Job posting has been closed.
-				</div>
-			{% endif %}
+			</fieldset>
+			</p>
 		{% else %}
-		<p align = "right"> <a href = "/jobpost/edit/{{user.userid}}/{{post.jobid}}">edit</a> | <a href = "/jobpost/delete/{{user.userid}}/{{post.jobid}}" onclick="return confirm('Are you sure you want to delete?')">delete</a></p>
+			<div id="notice">
+				This Job posting has been closed.
+			</div>
 		{% endif %}
+	{% endif %}
+	
+	{% if company.userid.userid == user.userid %}
+		<table>
+			<tr>
+				<td id = "holder" width="500">
+					{% if not closed %}
+						<b>This post is valid until:</b> {{qualifications.validity}}
+					{% else %}
+						<b> This post has expired </b>
+					{% endif %}
+				</td>
+				<td id = "holder">
+					<form action= "/jobpost/edit/{{user.userid}}/{{post.jobid}}">
+						{% csrf_token %}
+						<input type="submit" name="send" class="floatbutton" value="Edit this Job Post" />
+					</form>
+				</td>
+				<td id = "holder">
+					<form action= "/jobpost/delete/{{user.userid}}/{{post.jobid}}/" method="post">
+						{% csrf_token %}
+						<input type="submit" name="send" class="floatbutton" value="Delete Message" onclick="return confirm('Are you sure you want to delete?')" />
+					</form>
+				</td>
+			</tr>
+		</table>
+	{% endif %}
+
     {% endblock %}

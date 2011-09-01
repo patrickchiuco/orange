@@ -12,16 +12,10 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-#<<<<<<< HEAD
-        'NAME': 'orangeDB',                      # Or path to database file if using sqlite3.
-        'USER': 'webteam',                      # Not used with sqlite3.
-        'PASSWORD': 'pishIsnak',                  # Not used with sqlite3.
-#=======
-        #'NAME': 'test',                      # Or path to database file if using sqlite3.
-        #'USER': 'root',                      # Not used with sqlite3.
-        #'PASSWORD': '1234',                  # Not used with sqlite3.
+        'NAME': 'test',                      # Or path to database file if using sqlite3.
+        'USER': 'root',                      # Not used with sqlite3.
+        'PASSWORD': 'passw0rd',                  # Not used with sqlite3.
         #'PASSWORD': '',                  # Not used with sqlite3.
-#>>>>>>> 111baebf843640df23fd854d8b565c8472de6f3a
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -128,9 +122,10 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'resume',
+    'messages',
     'jobposts',
-    'employer',
     'jobseeker',
+    'employer',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -155,3 +150,10 @@ LOGGING = {
         },
     }
 }
+
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_HOST_USER = "engineeringorange@gmail.com"
+EMAIL_HOST_PASSWORD = "pishIsnak"
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "engineeringorange@gmail.com"

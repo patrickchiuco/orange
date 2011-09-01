@@ -4,26 +4,171 @@
 	
     {% block content %}
 		<fieldset/>
-		<legend><h4>Personal Information</h4></legend>
-		<b>Present Address: </b>{{resume.presentaddress}} <br>
-		<b>Permanent Address: </b>{{resume.permanentaddress}}<br>
-		<b>Telephone Number: </b>{{resume.telephonenumber}}<br>
-		<b>Mobile Number: </b>{{resume.mobilenumber}}<br>
-		<b>Birthday: </b> {{resume.birthday}}
-		<p/>
+		<legend><h4>Objective</h4></legend>
+		<table><tr><td id="holder"><p style="white-space:pre">{{resume.objective}}</p></td></tr></table>
+		{% if not form %}
+		<p align = "right"> <a href = "/jobseeker/editaccount/{{user.userid}}/">Edit Objective</a> </p>
+		{% endif %}
 		
 		<fieldset/>
-		<legend><h4>Objective</h4></legend>
-		<pre>{{resume.objective}}</pre>
-		<p/>
+		<legend><h4>Personal Information</h4></legend>
+		<table>
+			<tr><td id = "holder" width = 150><b>Present Address: </b></td><td id = "holder">{{resume.presentaddress}}</td></tr>
+			<tr><td id = "holder"><b>Permanent Address: </b></td><td id = "holder">{{resume.permanentaddress}}</td></tr>
+			<tr><td id = "holder"><b>Telephone Number: </b></td><td id = "holder">{{resume.telephonenumber}}</td></tr>
+			<tr><td id = "holder"><b>Mobile Number: </b></td><td id = "holder">{{resume.mobilenumber}}</td></tr>
+			<tr><td id = "holder"><b>Birthday: </b></td><td id = "holder">{{resume.birthday}}</td></tr>
+		</table>
+		{% if not form %}
+		<p align = "right"> <a href = "/jobseeker/editaccount/{{user.userid}}/">Edit Personal Information</a> </p>
+		{% endif %}
 		
 		<fieldset/>
 		<legend><h4>Educational Background</h4></legend>
-		{{education.startdate}} - {{education.enddate}}:      {{education.institution}}<br>
-        	<ul><ul><ul><ul><ul>{{education.degree}}
-			<ul><li> {{education.honors}}</li></ul>
-		</ul></ul></ul></ul></ul>
-		
+		{% if education %}
+			<table>
+			{% for educ in education%}
+				<tr>
+					<td id = "holder" width = 180> {{educ.startdate}} - {% if educ.enddate %}{{educ.enddate}}{% else %} present {% endif%}: </td>
+					<td id = "holder"> {{educ.institution}} </td>
+				</tr>
+				<tr>
+					<td id = "holder"></td>
+					<td id = "holder">{{educ.degree}}</td>
+				</tr>
+				{% if educ.honors %}
+					<tr>
+						<td id = "holder"></td>
+						<td id = "holder"><ul><li> {{educ.honors}}</li></ul></td>
+					</tr>
+				{% endif %}
+			{% endfor %}
+			</table>		
+		{% else %}
+			<h5>The Educational Background of {{resume.firstname}} has not been updated.</h5>
+		{% endif %}
+		{% if not form %}
+		<p align = "right"> <a href = "/jobseeker/viewall/education/{{user.userid}}">Edit Educational Background</a> </p>
+		{% endif %}
+
+		{% if employer or not form %}
+			<fieldset/>
+			<legend><h4>Employment History</h4></legend>		
+			{% if employer %}
+				<table>
+				{% for emp in employer%}
+					<tr>
+						<td id = "holder" width = 180> {{emp.startdate}} - {% if emp.enddate %}{{emp.enddate}}{% else %} present {% endif%}: </td>
+						<td id = "holder"> {{emp.employer}} </td>
+					</tr>
+					<tr>
+						<td id = "holder"></td>
+						<td id = "holder">{{emp.position}}</td>
+					</tr>
+				{% endfor %}
+				</table>		
+			{% endif %}
+			{% if not form%}
+				<p align = "right"> <a href = "/jobseeker/viewall/employment/{{user.userid}}">Edit Employment History</a> </p>
+			{% endif %}
+		{% endif %}
+
+		{% if project or not form %}
+			<fieldset/>
+			<legend><h4>Projects</h4></legend>		
+			{% if project %}
+				<table>
+					<tr>
+						<th width = 200>Title</th>
+						<th>Description</th>
+					</tr>
+				{% for p in project%}
+					<tr>
+						<td> {{p.title}} </td>
+						<td><i>{{p.description}}</i></td>
+					</tr>
+				{% endfor %}
+				</table>		
+				<br>
+			{% endif %}
+			{% if not form%}
+				<p align = "right"> <a href = "/jobseeker/viewall/projects/{{user.userid}}">Edit Projects</a> </p>
+			{% endif %}
+		{% endif %}
+
+		{% if aff or not form %}
+			<fieldset/>
+			<legend><h4>Affliations</h4></legend>		
+			{% if aff %}
+				<table>
+					<tr>
+						<th width=180>Duration</th>
+						<th>Organization</th>
+						<th>Position</th>
+					</tr>
+				{% for a in aff%}
+					<tr>
+						<td> {{a.startdate}} - {% if a.enddate %} {{a.enddate}} {% else %} present {% endif %}</td>
+						<td> {{a.organization}}</td>
+						<td> {% if a.position %}{{a.position}}{% else %} Member {% endif %}</td>
+					</tr>
+				{% endfor %}
+				</table>
+				<br>		
+			{% endif %}
+			{% if not form%}
+				<p align = "right"> <a href = "/jobseeker/viewall/affiliations/{{user.userid}}">Edit Affliations</a> </p>
+			{% endif %}
+		{% endif %}
+
+		{% if awards or not form %}
+			<fieldset/>
+			<legend><h4>Awards Received</h4></legend>		
+			{% if awards %}
+				<table>
+					<tr>
+						<th>Award</th>
+						<th>Institution</th>
+						<th>Date Received</th>
+					</tr>
+				{% for award in awards%}
+					<tr>
+						<td> {{award.award}} </td>
+						<td> {{award.institution}}</td>
+						<td> {{award.datereceived}}</td>
+					</tr>
+				{% endfor %}
+				</table>
+				<br>		
+			{% endif %}
+			{% if not form%}
+				<p align = "right"> <a href = "/jobseeker/viewall/awards/{{user.userid}}">Edit Awards Received</a> </p>
+			{% endif %}
+		{% endif %}
+
+		{% if seminar or not form %}
+			<fieldset/>
+			<legend><h4>Seminars Attended</h4></legend>		
+			{% if seminar %}
+				<table>
+					<tr>
+						<th width = 180l>Duration</th>
+						<th>Seminar Title</th>
+					</tr>
+				{% for s in seminar%}
+					<tr>
+						<td> {{s.startdate}} {% if s.enddate %} - {{s.enddate}} {% endif %}</td>
+						<td> {{s.title}}</td>
+					</tr>
+				{% endfor %}
+				</table>
+				<br>		
+			{% endif %}
+			{% if not form%}
+				<p align = "right"> <a href = "/jobseeker/viewall/seminars/{{user.userid}}">Edit Seminars Attended</a> </p>
+			{% endif %}
+		{% endif %}
+
 		{% if sent%}
 			<div id = "notice">
 				{{sent}}
@@ -38,7 +183,5 @@
 			<p><input type="submit" name="send" class="formbutton" value="Submit" /></p>
 		</form>
 		</fieldset>		
-		{% else %}
-			<p align = "right"> <a href = "/jobpost/edit/{{user.userid}}/{{post.jobid}}">edit</a> | <a href = "/jobpost/delete/{{user.userid}}/{{post.jobid}}">delete</a></p>
 		{% endif %}
 	{% endblock %}

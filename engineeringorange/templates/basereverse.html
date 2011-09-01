@@ -188,10 +188,10 @@ div#top ul li {
 div#top ul li a {
 	padding:10px 15px;
 	float:left;
-	color:#777;
+	color:#F66605;
 	text-decoration:none;
 	display:block;
-	font-size:12px;
+	font-size:13px;
 	font-weight:bold;
 	text-transform:uppercase;
 }
@@ -276,7 +276,7 @@ div#notice{
 
 /** footer **/
 div#footer {
-	padding-top:30px;
+	padding-top:70px;
 	color:#FE8100;
 	font-weight: bold;
 }
@@ -318,89 +318,6 @@ div#footer a {
 }
 </style>
 
-<script type="text/javascript">
-		    function ChangeColor(tableRow, highLight){
-			    if (highLight){
-			      tableRow.style.backgroundColor = '#F7B46F';
-			    }else{
-			      tableRow.style.backgroundColor = '#ffffff';
-			    }
-		    }
-
-		    function Nav(theUrl){
-		  	    document.location.href = theUrl;
-		    }
-			
-			function Pager(tableName, itemsPerPage) {
-				this.tableName = tableName;
-				this.itemsPerPage = itemsPerPage;
-				this.currentPage = 1;
-				this.pages = 0;
-				this.inited = false;
-			
-				this.showRecords = function(from, to) {        
-				var rows = document.getElementById(tableName).rows;
-				// i starts from 1 to skip table header row
-				for (var i = 1; i < rows.length; i++) {
-					if (i < from || i > to)  
-						rows[i].style.display = 'none';
-					else
-						rows[i].style.display = '';
-				}
-				}
-			
-				this.showPage = function(pageNumber) {
-					 if (! this.inited) {
-					  alert("not inited");
-					  return;
-					 }
-
-					var oldPageAnchor = document.getElementById('pg'+this.currentPage);
-					oldPageAnchor.className = 'pg-normal';
-					
-					this.currentPage = pageNumber;
-					var newPageAnchor = document.getElementById('pg'+this.currentPage);
-					newPageAnchor.className = 'pg-selected';
-					
-					var from = (pageNumber - 1) * itemsPerPage + 1;
-					var to = from + itemsPerPage - 1;
-					this.showRecords(from, to);
-				}   
-			
-				this.prev = function() {
-					if (this.currentPage > 1)
-						this.showPage(this.currentPage - 1);
-				}
-			
-				this.next = function() {
-					if (this.currentPage < this.pages) {
-						this.showPage(this.currentPage + 1);
-					}
-				}                        
-			
-				this.init = function() {
-					var rows = document.getElementById(tableName).rows;
-					var records = (rows.length - 1); 
-					this.pages = Math.ceil(records / itemsPerPage);
-					this.inited = true;
-				}
-
-				this.showPageNav = function(pagerName, positionId) {
-				 if (! this.inited) {
-				  alert("not inited");
-				  return;
-				 }
-				 var element = document.getElementById(positionId);
-				 
-				 var pagerHtml = '<span onclick="' + pagerName + '.prev();" class="pg-normal"> &#171 Prev </span> | ';
-					for (var page = 1; page <= this.pages; page++) 
-						pagerHtml += '<span id="pg' + page + '" class="pg-normal" onclick="' + pagerName + '.showPage(' + page + ');">' + page + '</span> | ';
-					pagerHtml += '<span onclick="'+pagerName+'.next();" class="pg-normal"> Next &#187;</span>';            
-					
-					element.innerHTML = pagerHtml;
-				}
-			}
-</script>
 
 <title>{% block head_title %}Engineering Orange{% endblock %}</title>
 <link rel="stylesheet" type="text/css" href="orange.css" />
@@ -409,12 +326,11 @@ div#footer a {
 <div id="wrapper">
 
 	<div id="top" class="clear">
-		<h1><a href="">Engineering Orange</a></h1>
+		<h1><a href="/"><img src="http://img.photobucket.com/albums/v399/blueblooddrops/logo.gif"></a></h1>
 		<ul>
-			<li><a href="/employer/{{user.userid}}">home</a></li>
+			<li><a href="/">home</a></li>				
 			<li><a href="/aboutorange/">about us</a></li>
-			<li><a href="/contactus/">contact</a></li>
-			<li><a href="">Logout</a></li>			
+			<li><a href="/contactus/">contact</a></li>			
 		</ul>
 		
 		
@@ -422,51 +338,15 @@ div#footer a {
 
 	
 	<div id="body" class="clear">
-		<div id="sidebar" class="column-right">
+		<div id="sidebar" class="column-left">
 			{% block sidebar %}
-			<ul>	
-				<li>
-					<h4>Account Details</h4>
-						<ul>
-							<li><a href="/employer/{{user.userid}}" title="View Announcements">View Announcements</a></li>
-							<li><a href="/employer/editaccount/{{user.userid}}" title="Edit your Account">Edit Account Details</a></li>
-						</ul>
-				</li>
-				<li>
-					<h4>Messages</h4>							
-						<ul>
-							<li><a href="/compose/{{user.userid}}" title="Compose a message">Compose Message</a></li>
-							<li><a href="/messages/{{user.userid}}" title="View Messages">View Messages</a></li>
-							<li><a href="/messages/sent/{{user.userid}}" title="View Sent Messages">View Sent Messages</a></li>
-						</ul>
-				</li>				
-				<li>
-					<h4>Job Posts</h4>
-	
-					<ul>
-						<li><a href="/jobpost/add/{{user.userid}}">Add a Job Post</a></li>
-	
-						<li><a href="/jobpost/{{user.userid}}" title="View Job Posts">View All Job Posts</a></li>
-					</ul>
-				</li>
-				
-				<li>
-	
-					<h4>Student Resumes</h4>
-					<ul>
-					  <li><a href="/searchresume/{{user.userid}}" title="Search for Resumes">Search for Student Resumes</a></li>
-					  <li><a href="/searcharesume/{{user.userid}}" title="Search for a Specifice Resume">View Specific Student Resume</a></li>
-					</ul>
-				</li>
-			</ul>
 			{% endblock %}
 		</div>
 		
-		<div id="content" class="column-left">
+		<div id="content" class="column-right">
 			 <h3>{% block title %}Page Title here{% endblock %}</h3>
-            {% block content %}
-
-            {% endblock %}
+		    {% block content %}
+		    {% endblock %}
 		</div>
 	</div>
 	

@@ -1,0 +1,37 @@
+{% extends 'baseuser.html' %} 
+ {% block head_title %} Engineering Orange {% endblock %}
+ {% block title %} Edit {{field}}{% endblock %}
+ 
+ {% block content %}
+	<fieldset>
+	<form action="#" method="post">		
+			{% csrf_token %}{{ form.as_p }}
+		<p><input type="submit" name="send" class="formbutton" value="Edit" />
+	</form>
+	{% if field == 'Educational Background'%}
+	<div style="position: absolute; top: 582px; left: 415px;">
+		<form action="/jobseeker/viewall/education/{{user.userid}}/"><input type="submit" name="send" class="floatbutton" value="Cancel"/></p></form>
+	{% endif %}
+	{% if field == 'Employment History'%}
+	<div style="position: absolute; top: 582px; left: 415px;">
+		<form action="/jobseeker/viewall/employment/{{user.userid}}/"><input type="submit" name="send" class="floatbutton" value="Cancel"/></p></form>
+	{% endif %}
+	{% if field == 'Project'%}
+	<div style="position: absolute; top: 441px; left: 415px;">
+		<form action="/jobseeker/viewall/projects/{{user.userid}}/"><input type="submit" name="send" class="floatbutton" value="Cancel"/></p></form>
+	{% endif %}
+	{% if field == 'Affiliation'%}
+	<div style="position: absolute; top: 393px; left: 415px;">
+		<form action="/jobseeker/viewall/affiliations/{{user.userid}}/"><input type="submit" name="send" class="floatbutton" value="Cancel"/></p></form>
+	{% endif %}
+	{% if field == 'Award Details'%}
+	<div style="position: absolute; top: 346px; left: 415px;">
+		<form action="/jobseeker/viewall/awards/{{user.userid}}/"><input type="submit" name="send" class="floatbutton" value="Cancel"/></p></form>
+	{% endif %}
+	{% if field == 'Seminar Details'%}
+	<div style="position: absolute; top: 346px; left: 415px;">
+		<form action="/jobseeker/viewall/seminars/{{user.userid}}/"><input type="submit" name="send" class="floatbutton" value="Cancel"/></p></form>
+	{% endif %}
+	</div>
+	</fieldset>
+ {% endblock %}

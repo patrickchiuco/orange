@@ -16,9 +16,4 @@ class JobPositionForm(ModelForm):
 	class Meta:
 		model = Jobpositions
 		exclude = ('jobid')
-		
-class SearchJobsForm(ModelForm):
-    class Meta:
-        model = Jobpositions
-        fields = ('industryid',)
 

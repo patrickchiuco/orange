@@ -3,12 +3,11 @@
  {% block title %} Add A Job Post{% endblock %}
   
  {% block content %}
-	
+	<fieldset>
 	<form action="#" method="post">
-		<fieldset><br>
 			{% csrf_token %}{{ form.as_p }}
 			{% csrf_token %}{{ form2.as_p }}	
-		<p><input type="submit" name="send" class="formbutton" value="Submit" /></p>
-		</fieldset>
+		<p><input type="submit" name="send" class="formbutton" value="Submit" /></p>		
 	</form>
+	</fieldset>
  {% endblock %}

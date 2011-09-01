@@ -6,9 +6,7 @@ import datetime
 
 # Create your models here.
 
-# Forms Used
-class EmployerForm(ModelForm):
+class PasswordForm(ModelsForm):
 	class Meta:
-		model = Employer
-		exclude = ('userid', 'industryid')
-		
+		model = Accounts
+		fields = ('email')

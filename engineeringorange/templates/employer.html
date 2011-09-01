@@ -5,16 +5,14 @@
  {% block content %}
 	<fieldset/>
 	<br>
-	<h3/>Announcements
+	<h3>Announcements</h3>
 	{% if announcements %}
-            <ul>
-            {% for announcement in announcements%}
-                {{announcement.annText}}
-				<p/>
-				<fieldset/>
-				<p align = "right"> Date posted: {{announcement.datePosted}}</p>
+	    {% for announcement in announcements%}
+					<p style="white-space:pre">{{announcement.annText}}</p>
+					<fieldset>
+						<h5 align = "right">Date posted: {{announcement.datePosted}}</h5>
+	         	 	        </fieldset>
             {% endfor %}
-            </ul>
     {% else %}
         <h4/>There are no announcements.
     {% endif %}

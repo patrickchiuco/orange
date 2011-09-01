@@ -1,40 +1,45 @@
-{% extends 'base.html' %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<title>Engineering Orange</title>
-	<style>
-		body{
-			font-family: Arial, Helvetica, sans-serif;
-			font-size: 0.9em;
-		}	
-		
-		#wrapper{
-			height: 30em;
-			position: relative;
-			top:auto;
-		}
-		
-	</style>
-</head>
-	{% block title %}Login Here{% endblock %}
-	{% block content%}
-	<div id="wrapper">
-		<div>
-			{% if form.messages.errors %}
-			{{ form.messages.errors }}
-			{% endif %}
-			{% if doesNotExist %}
-			{{ error_message }}
-			{% endif %}
-		</div>
+{% extends 'basereverse.html' %}
+	{% block sidebar%}
+		<h3> Login Here </h3>
 		<fieldset>
+		{% if form.messages.errors or doesNotExist or notice %}
+			<BR>
+			<div id="notice">
+				{{ form.messages.errors }}
+				{{ error_message }}
+				{{notice}}
+			</div>
+			<BR>
+		{% endif %}
 			<form action="", method="post">
 				{% csrf_token%}
 					{{form.as_p}}		
-						<input type='submit' value='login' class="formbutton"/>
+						<input type='submit' value='Login' class="floatbutton"/>
 			</form>
 		</fieldset>
-	</div>
+
+		<p align="center">
+			<BR>
+			 <a href= "/resetpassword/" >Forgot your password? </a>		
+		</p>
+		
+		<p align="center">
+			<h3>Don't Have an Account?</h3>
+			<form action="/register/" align = "center">
+				<input type='submit' value='Register!' class="floatbutton"/>
+			</form>
+		</p>
 	{% endblock %}
-</html>
+	{% block title %}Announcements{% endblock %}
+	{% block content%}
+		{% if announcements %}
+        	        {% for announcement in announcements%}
+					<p style="white-space:pre">{{announcement.annText}}</p>
+					<fieldset>
+						<h5 align = "right">Date posted: {{announcement.datePosted}}</h5>
+	         	 	        </fieldset>
+		    {% endfor %}
+		{% else %}
+			<h4/>There are no announcements.
+		{% endif %}
+	{% endblock%}

@@ -23,3 +23,7 @@ class EmployerMessageForm(forms.ModelForm):
 		model = Messages
 		exclude = ('fromid', 'msgid', 'readdate', 'senddate');
 
+class BlankMessageForm(forms.ModelForm):
+	class Meta:
+		model = Messages
+		fields = ()

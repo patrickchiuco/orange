@@ -1,16 +1,35 @@
-   {% extends 'baseuser.html' %} 
+ {% extends 'baseuser.html' %}
     {% block head_title %}{{message.subject}}{% endblock %}
-    {% block title %}<h4>{{message.subject}}</h4>{% endblock %}
-	
-    {% block content %}
-		<fieldset/><br>
-		<b>From:</b> {{message.fromid.email}} <p/>
-		<b>To: </b> {{message.toid.email}}
-		<fieldset/>
-		<br>
-		<p/><pre>{{message.message}}</pre>
-		<fieldset/>
-		<p align = "right"><a href = "/employer/message/reply/{{user.userid}}/{{message.msgid}}">reply</a> | <a href = "/employer/message/delete/{{user.userid}}/{{message.msgid}}">delete message</a></p>
-		
-    {% endblock %}
+{% block title %}
+<h4>{{message.subject}}</h4>
+{% endblock %}
 
+{% block content %}
+<br>
+<b>From:</b> {{message.fromid.email}} <p/>
+<b>To: </b> {{message.toid.email}}
+<fieldset>
+<br>
+<p style="white-space:pre">{{message.message}}</p>
+</fieldset>
+<fieldset></fieldset>
+<table>
+<tr>
+<td id = "holder" width = 400>
+</td>
+<td id="holder">
+<form action= "/reply/{{user.userid}}/{{message.msgid}}/">
+{% csrf_token %}
+<input type="submit" name="send" class="floatbutton" value="Reply to this Message" />
+</form>
+</td>
+<td id = "holder">
+<form action= "/message/delete/{{user.userid}}/{{message.msgid}}/" method="post">
+{% csrf_token %}
+<input type="submit" name="send" class="floatbutton" value="Delete Message" onclick="return confirm('Are you sure you want to delete?')" />
+</form>
+</td>
+</tr>
+</table>
+
+{% endblock %}

@@ -1,44 +1,50 @@
-{% extends 'base.html' %}
+{% extends 'basereverse.html' %}
+{% block title %}
+	{% if forgotpword%}
+		Reset Password
+	{% else %}
+		Register Now
+	{% endif %}
+{% endblock %}
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<title>Engineering Orange</title>
-	<style>
-		body{
-			font-family: Arial, Helvetica, sans-serif;
-			font-size: 0.9em;
-		}	
+{% block content %}	
+	{% if forgotpword%}
 	
-		#wrapper{
-			height: 30em;
-			position: relative;
-			top:auto;
-			bottom: auto;
-		}
-		
-		table{
-			text-align:left;
-			
-		}
-	</style>
-</head>
-{% block title %}Register Here{% endblock %}
-{% block content %}
-	<div id="wrapper">
-		<div>{% if form.message.errors %}
-			{{form.message.errors}}
-			{% endif %}
+				Please enter the email address you've registered. A new password will be sent to your account.
+				<fieldset>			
+				{% if form.message.errors or notice %}
+					<BR>
+					<div id="notice">
+						{{form.message.errors}}
+						{{notice}}
+					</div>
+				{% endif %}
+				<form action="#" method="get">
+					<input type="text" name="email" label="Email Address" style="border:1px solid #ddd; font-size:14px; padding:3px; width:350px;" />
+					<input type="submit" class="floatbutton" value="Reset my Password!"> 
+				</form>
+				</fieldset>
+				{% if notice == 'Your password has been sent!'%}
+					<p align="center">
+						<form action="/" align = "center">
+							<input type='submit' value="Go Back to Login Page" class="floatbutton"/>
+						</form>
+					</p>
+				{% endif %}
+	{% else%}
+		{% if form.message.errors %}
+			<div id="notice">
+				{{form.message.errors}}
 			</div>
+		{% endif %}
 		Please enter your student number in the 9 digit format.
 		<fieldset>
-		<form action="", method="post">
-			{% csrf_token%}
-			{{form.as_p}}
-			<input type="submit" value="login" class="formbutton" />
-			
-		</form>
+			<form action="", method="post">
+				{% csrf_token%}
+				{{form.as_p}}
+				<input type="submit" value="Register" class="formbutton" />	
+			</form>
 		</fieldset>
-	</div>
-	{% endblock %}
-</html>
+	{% endif %}
+{% endblock %}
+

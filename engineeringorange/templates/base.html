@@ -1,10 +1,10 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/css; charset=iso-8859-1" />
 <style>
 /** global **/
 body {
-	background:#fff url('body_bg.jpg') repeat-x;
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:12px;
 	color:#555;
@@ -36,6 +36,13 @@ th {
 td {
 	border-bottom:1px solid #f4f4f4;
 }
+
+td#holder{
+	padding-top: 1px;
+	padding-left: 0px;
+	border-bottom:none;
+}
+
 
 code, blockquote {
 	display:block;
@@ -82,6 +89,7 @@ fieldset p label {
 	width:150px;
 	font-family:Arial, Helvetica, sans-serif;
 }
+
 fieldset form input, fieldset form select, fieldset form textarea {
 	padding:5px;
 	color:#333333;
@@ -89,8 +97,20 @@ fieldset form input, fieldset form select, fieldset form textarea {
 	font-family:Arial, Helvetica, sans-serif;
 	border:1px solid #ddd;
 }
+
+
 form input.formbutton {
 	margin-left:150px;
+	background:#FE8100;
+	border:none;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#ffffff;
+	font-weight:bold;
+	padding:5px 10px;
+	font-size:12px;
+}
+
+form input.floatbutton {
 	background:#FE8100;
 	border:none;
 	font-family:Arial, Helvetica, sans-serif;
@@ -177,7 +197,7 @@ div#top ul li {
 div#top ul li a {
 	padding:10px 15px;
 	float:left;
-	color:#777;
+	color:#F66605;
 	text-decoration:none;
 	display:block;
 	font-size:12px;
@@ -398,12 +418,21 @@ div#footer a {
 <div id="wrapper">
 
 	<div id="top" class="clear">
-		<h1><a href="">Engineering Orange</a></h1>
+		<h1><a href="/"><img src="http://img.photobucket.com/albums/v399/blueblooddrops/logo.gif"></a></h1>
 		<ul>
-			<li><a href="/employer/{{user.userid}}">home</a></li>
+			{% if user.usertype == 'employer'%}			
+				<li><a href="/employer/{{user.userid}}">home</a></li>
+			{% endif %}
+			{%if user.usertype == 'jobseeker'%}
+				<li><a href="/jobseeker/{{user.userid}}">home</a></li>
+			{% endif %}
+			{% if user.usertye == 'admin' %}
+				<li><a href="/">home</a></li>				
+			{% endif %}
 			<li><a href="/aboutorange/">about us</a></li>
 			<li><a href="/contactus/">contact</a></li>
-			<li><a href="">Logout</a></li>			
+			<li><a href="/accounts/logout/">Logout</a></li>
+						
 		</ul>
 		
 		
@@ -418,9 +447,8 @@ div#footer a {
 		
 		<div id="content" class="column-left">
 			 <h3>{% block title %}Page Title here{% endblock %}</h3>
-            {% block content %}
-
-            {% endblock %}
+		    {% block content %}
+		    {% endblock %}
 		</div>
 	</div>
 	

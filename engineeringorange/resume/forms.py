@@ -12,3 +12,8 @@ class RegistrationForm (forms.Form):
 class LogInForm (forms.Form):
     username = forms.CharField(label='Username')
     password = forms.CharField(widget=forms.PasswordInput,label='Password')
+
+class ChangePasswordForm(forms.Form):
+    password = forms.CharField(widget=forms.PasswordInput, label='Current Password', required=True)
+    newpassword = forms.CharField(widget=forms.PasswordInput, label = 'New Password', required=True)
+    repeatpassword = forms.CharField(widget=forms.PasswordInput, label = 'Confirm New Password', required=True)
